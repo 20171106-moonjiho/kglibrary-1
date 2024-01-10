@@ -1,4 +1,4 @@
-package com.kg.library.donate;
+package com.kg.library_1.donate;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.kg.library.PageService;
+import com.kg.library_1.PageService;
 
 
 @Service

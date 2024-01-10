@@ -1,4 +1,4 @@
-package com.kg.library.book;
+package com.kg.library_1.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -4,7 +4,7 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.kg.library.bookHope.IBookHopeMapper">
+<mapper namespace="com.kg.library_1.bookHope.IBookHopeMapper">
 
 	<insert id="bookHopeRegistProc">
 		<selectKey order="BEFORE" keyProperty="no" resultType="int">
@@ -34,7 +34,7 @@
 		
 	</select>
 
-	<select id="bookHopeForm" resultType="com.kg.library.bookHope.BookHopeDTO">
+	<select id="bookHopeForm" resultType="com.kg.library_1.bookHope.BookHopeDTO">
 
 		<choose>
 			<when test="select == 'board_title'">
@@ -67,7 +67,7 @@
 	</select>
 
 	<select id="bookHopeContent"
-		resultType="com.kg.library.bookHope.BookHopeDTO">
+		resultType="com.kg.library_1.bookHope.BookHopeDTO">
 		SELECT * FROM bookHope WHERE no=#{n}
 	</select>
 

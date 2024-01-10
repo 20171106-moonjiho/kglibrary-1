@@ -1,4 +1,4 @@
-package com.kg.library.requestBook;
+package com.kg.library_1.requestBook;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kg.library.book.BookDTO;
-import com.kg.library.book.BookService;
+import com.kg.library_1.book.BookDTO;
+import com.kg.library_1.book.BookService;
 
 @RestController
 public class requestBookController {

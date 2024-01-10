@@ -1,4 +1,4 @@
-package com.kg.library.book;
+package com.kg.library_1.book;
 
 import java.io.File;
 import java.net.HttpURLConnection;
@@ -24,8 +24,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.kg.library.PageService;
-import com.kg.library.reservation.ReservationDTO;
+import com.kg.library_1.PageService;
 
 import jakarta.servlet.http.HttpSession;
 

@@ -4,10 +4,7 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.kg.library.book.IBookMapper">
-	<resultMap type="com.kg.library.member.MemberDTO" id="member">
-		<id column="id" property="id"/>
-	</resultMap>
+<mapper namespace="com.kg.library_1.book.IBookMapper">
 	
 	<insert id="bookRegistProc">
 		<selectKey order="BEFORE" keyProperty="no" resultType="int">
@@ -39,7 +36,7 @@
 		</choose>
 	</select>
 
-	<select id="bookForm" resultType="com.kg.library.book.BookDTO">
+	<select id="bookForm" resultType="com.kg.library_1.book.BookDTO">
 
 		<choose>
 			<when test="select == 'title'">
@@ -76,7 +73,7 @@
     	</choose>
     </select>
     
-	<select id="bookContent" resultType="com.kg.library.book.BookDTO">
+	<select id="bookContent" resultType="com.kg.library_1.book.BookDTO">
     	SELECT * FROM book WHERE no=#{n}	
     </select>
     
@@ -96,7 +93,7 @@
     	DELETE FROM book WHERE no=#{n}
     </delete>
     
-    <select id="myBook" resultType="com.kg.library.book.BookDTO">
+    <select id="myBook" resultType="com.kg.library_1.book.BookDTO">
 		<!-- SELECT B.* FROM (
 		SELECT ROWNUM as r, A.* FROM ( -->
 		SELECT book.* FROM book WHERE borrowperson = #{id}
