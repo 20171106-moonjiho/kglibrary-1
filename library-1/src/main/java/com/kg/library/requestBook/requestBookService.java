@@ -69,20 +69,22 @@ public class requestBookService {
 }
 	
 	/*
-	public void requestDataFromServer() {
+	public void requestDataFromServer() { //DB json에서 받아오기 보내는 데이터가 없을 때 / DB 자료 달라고 요청
         // RestTemplate 생성
         RestTemplate restTemplate = new RestTemplate();
 
         // 서버에게 데이터를 요청하는 URL
-        String apiUrl = "http://localhost:8085/data";
+        String apiUrl = "http://localhost:80/bookdata";
 
         // GET 요청 보내기
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiUrl, String.class);
 
-        // 응답 확인
+        // 응답 확인(응답으로 데이터 받음, 가공은 해야 됨)
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             String responseBody = responseEntity.getBody();
-            System.out.println("Response body: " + responseBody);
+            System.out.println("Response body: 여기 맞음? " + responseBody);
+            //가공 영역
+            
         } else {
             System.out.println("Request failed. Status code: " + responseEntity.getStatusCode());
         }

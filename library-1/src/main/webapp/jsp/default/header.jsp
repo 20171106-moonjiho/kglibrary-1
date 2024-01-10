@@ -25,7 +25,7 @@
 						<li class="login">
 							<c:choose>
 								<c:when test="${empty sessionScope.id }">
-									<a href="redirectToLogin">로그인</a>
+									<a href="Login">로그인</a>
 								</c:when>
 								<c:otherwise>
 									<a href="logout">로그아웃</a>
