@@ -1,5 +1,6 @@
 package com.kg.library_1.requestBook;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +11,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kg.library_1.book.BookDTO;
 import com.kg.library_1.book.BookService;
 
-@RestController
+@Controller
 public class requestBookController {
 
 	@Autowired requestBookService service;
 	
 	@Autowired
     private BookService bookservice;
+	
+    @RequestMapping(value = "/redirectToLogin", method = RequestMethod.GET) //페이지 연결 //redirect는 get으로 요청.
+    public ModelAndView redirectToLogin() {
+    	System.out.println("dlrj dho dksehla?");
+        return new ModelAndView("redirect:http://localhost:80/login"); // 외부 서버의 jsp로 연결하고 싶으면 redirect 써야 됨.
+    }
 	
 /*
     @GetMapping("bookdata") //DB 자료 가공해서 return으로 데이터를 넘김
@@ -31,12 +39,6 @@ public class requestBookController {
         return dataFromDB;
     }
 */  
-	@RequestMapping("requestlogin")
-	public String requestlogin(){
-		
-		service.requestlogin();
-		return "redirect:bookfrom";
-	}
 	
     @PostMapping("requestbookForm") //return으로 데이터를 넘김
     public ResponseEntity<String> requestbookForm(@RequestBody String requestBody) {//외부 서버 데이터 받기
@@ -48,9 +50,21 @@ public class requestBookController {
         return ResponseEntity.ok(responseBody);
     }
     
-    @RequestMapping(value = "/redirectToLogin", method = RequestMethod.GET) //페이지 연결 //redirect는 get으로 요청.
-    public ModelAndView redirectToLogin() {
-        return new ModelAndView("redirect:http://localhost:8085/login"); // 외부 서버의 jsp로 연결하고 싶으면 redirect 써야 됨.
+    @GetMapping("/BookData")
+    @ResponseBody 
+    public String BookData(){
+    	System.out.println("뭘 못찾아 ㅅㅂ");
+    	return "ㄴㅁ이라ㅓㅏ";
+   /* public ArrayList<BookDTO> BookData() {
+       ArrayList<BookDTO> hitbooks = bookservice.BookData();
+         for (BookDTO b : hitbooks) {
+              System.out.println(b.getNo());
+              System.out.println(b.getImage());
+              System.out.println(b.getTitle_info());
+              System.out.println(b.getAuthor_info());
+           }
+        return hitbooks; */
     }
+    
     
 }

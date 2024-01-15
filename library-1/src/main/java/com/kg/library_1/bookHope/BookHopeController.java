@@ -22,7 +22,15 @@ public class BookHopeController {
 	
 	@RequestMapping("bookHopeForm") // 희망 도서 url
 	public String bookHopeForm(String search,Model model,
-			@RequestParam(value="currentPage", required = false)String cp, String select) {
+			@RequestParam(value="currentPage", required = false)String cp, String select, 
+			@RequestParam(name = "parameterName", required = false) String Id) {
+		if(Id != null && !Id.trim().isEmpty()) {	
+		session.setAttribute("id", Id);
+		}
+		System.out.println("idddddddd" + Id);
+		String sessionId = (String)session.getAttribute("id");
+		System.out.println("bookhope 확인." + sessionId);
+		
 			//검색 시 select 값으로 검색(search) 확인.
 			if(search == null || search.trim().isEmpty()) {
 				search = ""; select = "title"; 

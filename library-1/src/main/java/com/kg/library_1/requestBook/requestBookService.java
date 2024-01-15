@@ -1,6 +1,8 @@
 package com.kg.library_1.requestBook;
 
 
+import java.util.ArrayList;
+
 import org.springframework.http.*;
 
 import org.springframework.stereotype.Service;
@@ -8,6 +10,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import com.kg.library_1.book.BookDTO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -17,20 +21,6 @@ public class requestBookService {
 
 	private HttpSession session;
 	
-	public void requestlogin() {
-				
-			String loginPageUrl = "localhost:8085/login";
-
-			RestTemplate restTemplate = new RestTemplate();
-			
-			String loginRQ = "loginRQ";
-			
-			loginPageUrl = UriComponentsBuilder.fromUriString(loginPageUrl)
-	                .queryParam("loginRQ", loginRQ)
-	                .build().toUriString();
-
-	    }
-
 	public void requestId() {  //ID 보낼 때
 		
         // RestTemplate 생성
@@ -67,6 +57,8 @@ public class requestBookService {
     }
 
 }
+
+
 	
 	/*
 	public void requestDataFromServer() { //DB json에서 받아오기 보내는 데이터가 없을 때 / DB 자료 달라고 요청
@@ -88,9 +80,9 @@ public class requestBookService {
         } else {
             System.out.println("Request failed. Status code: " + responseEntity.getStatusCode());
         }
-    }
+    }*/
 	
-	*/
+	
 	
 	
 	

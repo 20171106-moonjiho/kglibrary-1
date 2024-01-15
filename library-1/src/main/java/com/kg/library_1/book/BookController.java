@@ -22,20 +22,28 @@ public class BookController {
 	
 	@RequestMapping("bookForm") // 도서 검색 url
 	public String bookForm(String search,Model model,
-			@RequestParam(value="currentPage", required = false)String cp, String select) {
-			//검색 시 select 값으로 검색(search) 확인.
+			@RequestParam(value="currentPage", required = false)String cp, String select, 
+			@RequestParam(name = "parameterName", required = false) String Id) {
+		if(Id != null && !Id.trim().isEmpty())	
+		session.setAttribute("id", Id);
+		
+		String sessionId = (String) session.getAttribute("id");
+		System.out.println("bookform id 확인." + sessionId);
+			
+		//검색 시 select 값으로 검색(search) 확인.
 			if(search == null || search.trim().isEmpty()) {
 				search = ""; select = "title"; 
 			}
 
 			model.addAttribute("menu", "board");
-			service.bookForm(cp, model, search, select); //DB 검색 및 정렬
+		//	service.bookForm(cp, model, search, select); //DB 검색 및 정렬
 
 		return "book/bookForm";
 	}
 	
 	@RequestMapping("bookRegist") //도서 등록 url
 	public String bookRegist(Model model) {
+	
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId==null || sessionId.trim().isEmpty()) {
 			System.out.println(sessionId);
@@ -117,7 +125,12 @@ public class BookController {
 	}
 	
 	@RequestMapping("apiRegistProc") //도서 등록
-	public String apiRegistProc(String pageNum, String select, String search, Model model) {
+	public String apiRegistProc(String pageNum, String select, String search, Model model,
+			@RequestParam(name = "parameterName", required = false) String Id) {
+		if(Id != null && !Id.trim().isEmpty())	
+		session.setAttribute("id", Id);
+		String sessionId = (String) session.getAttribute("id");
+		System.out.println("api id 확인." + sessionId);
 
 		if(search == null || search.trim().isEmpty()) {
 			return "redirect:apiBookRegist";

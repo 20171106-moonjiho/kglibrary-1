@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/jsp/default/favicon.jsp" %>
+
+  
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +14,7 @@
 </head>
 <link href="book2.css" rel="stylesheet">
 <body>
+	
 	<c:import url="/header" />
 	<c:import url="/bookheader" />
 	<div id="cont_head">
@@ -104,6 +109,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<c:import url="/bookfooter" />
 	<c:import url="/footer" />
 </body>
