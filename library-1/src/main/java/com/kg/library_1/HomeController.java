@@ -29,8 +29,8 @@ public class HomeController {
 	
 	@RequestMapping("main")
 	public String main(Model model) {
-		Book_Service.hit_book(model);
-		Book_Service.new_book(model);
+	//	Book_Service.hit_book(model);
+	//	Book_Service.new_book(model);
 		return "default/main";
 	}
 	

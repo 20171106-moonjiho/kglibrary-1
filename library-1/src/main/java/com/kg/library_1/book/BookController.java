@@ -1,14 +1,24 @@
 package com.kg.library_1.book;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -27,6 +37,8 @@ public class BookController {
 		if(Id != null && !Id.trim().isEmpty())	
 		session.setAttribute("id", Id);
 		
+		session.setAttribute("id", "admin");
+		
 		String sessionId = (String) session.getAttribute("id");
 		System.out.println("bookform id 확인." + sessionId);
 			
@@ -36,7 +48,7 @@ public class BookController {
 			}
 
 			model.addAttribute("menu", "board");
-		//	service.bookForm(cp, model, search, select); //DB 검색 및 정렬
+			service.bookForm(cp, model, search, select); //DB 검색 및 정렬
 
 		return "book/bookForm";
 	}
@@ -152,7 +164,131 @@ public class BookController {
 		
 	}
 	
+	@GetMapping("hit_book")
+	 @ResponseBody
+	    public ArrayList<BookDTO> hitBook() {
+		   try {
+			   System.err.println("요청 연결 성공");
+	            ArrayList<BookDTO> hitbooks = service.hitBook();
+
+	            // 받아온 데이터 출력
+	            for (BookDTO b : hitbooks) {
+	                System.out.println("No: " + b.getNo());
+	                System.out.println("Image: " + b.getImage());
+	                System.out.println("Title Info: " + b.getTitle_info());
+	                System.out.println("Author Info: " + b.getAuthor_info());
+	            }
+
+	            return hitbooks;
+	        } catch (Exception e) {
+	            // 예외 발생 시 출력
+	            System.err.println("요청 연결 실패");
+	            e.printStackTrace();
+	            return new ArrayList<>(); // 빈 리스트 또는 에러 응답을 반환할 수 있음
+	        }
+	    }
+	 @GetMapping("new_Book")
+	 @ResponseBody
+	    public ArrayList<BookDTO> newBook() {
+		   try {
+			   System.err.println("요청 연결 성공");
+	            ArrayList<BookDTO> newBooks = service.newBook();
+
+	            // 받아온 데이터 출력
+	            for (BookDTO b : newBooks) {
+	            	System.out.print("\u001B[31m");
+	                System.out.println("8087newbook No: " + b.getNo());
+	                System.out.println("8087newbook Image: " + b.getImage());
+	                System.out.println("8087newbook Title Info: " + b.getTitle_info());
+	                System.out.println("8087newbook Author Info: " + b.getAuthor_info());
+	                System.out.print("\u001B[0m");
+	            }
+
+	            return newBooks;
+	        } catch (Exception e) {
+	            // 예외 발생 시 출력
+	            System.err.println("요청 연결 실패");
+	            e.printStackTrace();
+	            return new ArrayList<>(); // 빈 리스트 또는 에러 응답을 반환할 수 있음
+	        }
+	    }
 	
+	 @GetMapping("dataStatus")
+	 @ResponseBody
+	    public List<Map<String, Object>> dataStatus(BookDTO board, Model model) {
+		   try {
+			   System.err.println("요청 연결 성공");
+	            List<Map<String, Object>> dataStatus = service.dataStatus(board);
+	            // 받아온 데이터 출력
+	           
+	            // 받아온 데이터 출력 (디버깅 용도로 출력)
+	            for (Map<String, Object> data : dataStatus) {
+	                System.out.println("8087Data: " + data);
+	            }
+	            
+	            return dataStatus;
+	        } catch (Exception e) {
+	            // 예외 발생 시 출력
+	            System.err.println("요청 연결 실패");
+	            e.printStackTrace();
+	            return new ArrayList<>(); // 빈 리스트 또는 에러 응답을 반환할 수 있음
+	        }
+	    }
+	
+	/////////////////////////////////
+	 
+	    @PostMapping("requestMyBook") //return으로 데이터를 넘김
+	    public ResponseEntity<String> requestMyBook(@RequestBody Map<String, String> requestBody) {//외부 서버 데이터 받기
+	        // 요청 바디를 받아서 처리하는 로직을 작성
+	    	String reID = requestBody.get("id");
+	    	
+	    	if(reID == null || reID.trim().isEmpty()) {
+	    		return ResponseEntity.ok("ERROR");
+	    	}
+	    	
+	    	List<BookDTO> requestmybook = service.requestMyBook(reID);
+	    	String myBookJson;
+	        try {
+	            ObjectMapper objectMapper = new ObjectMapper();
+	            myBookJson = objectMapper.writeValueAsString(requestmybook);
+	        } catch (JsonProcessingException e) {
+	            e.printStackTrace();
+	            return ResponseEntity.ok("ERROR");
+	        }
+	        
+	    //	System.out.println("bookdto = " + myBookJson);
+	    //    System.out.println("Received request body: " + reID);
+
+	        // 응답 생성 (예: "Request received successfully"라는 메시지를 응답)
+	        String responseBody = "Request received successfully";
+	        return ResponseEntity.ok(myBookJson);
+	    }
+	 
+	    @PostMapping("requestDateExtend") //return으로 데이터를 넘김
+	    public ResponseEntity<String> requestDateExtend(@RequestBody Map<String, String> requestBody) {//외부 서버 데이터 받기
+	        // 요청 바디를 받아서 처리하는 로직을 작성
+	    	String id = requestBody.get("id");
+	    	String no = requestBody.get("no");
+	    	//no 
+	    	service.borrowDateExtend(no,id);
+
+	        // 응답 생성 (예: "Request received successfully"라는 메시지를 응답)
+	        String responseBody = "Request received successfully";
+	        return ResponseEntity.ok(responseBody);
+	    }
+	
+	    @PostMapping("requestreturnProc2") //return으로 데이터를 넘김
+	    public ResponseEntity<String> requestreturnProc2(@RequestBody Map<String, String> requestBody) {//외부 서버 데이터 받기
+	        // 요청 바디를 받아서 처리하는 로직을 작성
+	    	String no = requestBody.get("no");
+	    	//no 
+	    	service.requestreturnProc2(no);
+
+	        // 응답 생성 (예: "Request received successfully"라는 메시지를 응답)
+	        String responseBody = "Request received successfully";
+	        return ResponseEntity.ok(responseBody);
+	    }
+	    
 	
 	
 	//공지사이드바 템플릿

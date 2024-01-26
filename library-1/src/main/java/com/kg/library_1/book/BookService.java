@@ -13,8 +13,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,12 +32,14 @@ import jakarta.servlet.http.HttpSession;
 
 @Service
 public class BookService {
-	//private String filePath = "C:\\Users\\user1\\git\\kglibrary\\library\\src\\main\\resources\\static\\img\\";
+
 	private String filePath = "C:\\Users\\User\\git\\kglibrary\\library\\src\\main\\resources\\static\\img\\";
 	@Autowired
 	IBookMapper mapper;
 	@Autowired
 	private HttpSession session;
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	public void bookForm(String cp, Model model, String search, String select) { // 책 검색 게시판
 
@@ -66,30 +70,28 @@ public class BookService {
 
 	public String bookRegistProc(MultipartHttpServletRequest multi) { // 책 등록
 
-			String sessionId = (String) session.getAttribute("id");
-			if (sessionId == null)
-				return "redirect:login";
-	
-			
-			LocalDateTime currentTime = LocalDateTime.now(); // 현재 시간 가져오기
-			LocalDateTime plusTime = currentTime.plus(Duration.ofDays(7));
-			Timestamp borrowtime = Timestamp.valueOf(currentTime); //형변환
-			Timestamp returntime = Timestamp.valueOf(plusTime); //형변환
-			
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-			String rentaldate = plusTime.format(formatter);
-			
-			int book_count = Integer.parseInt(multi.getParameter("book_count")); //책 갯수
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
-			
-			String fullPath = "";
-			
-			if(multi.getParameter("category").equals("API")) //API에서 받아온 이미지 라면
-			{
-				fullPath = multi.getParameter("image");
-			}
-			else { //사용자가 직접 올린 이미지라면
+		String sessionId = (String) session.getAttribute("id");
+		if (sessionId == null)
+			return "redirect:login";
+
+		LocalDateTime currentTime = LocalDateTime.now(); // 현재 시간 가져오기
+		LocalDateTime plusTime = currentTime.plus(Duration.ofDays(7));
+		Timestamp borrowtime = Timestamp.valueOf(currentTime); // 형변환
+		Timestamp returntime = Timestamp.valueOf(plusTime); // 형변환
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String rentaldate = plusTime.format(formatter);
+
+		int book_count = Integer.parseInt(multi.getParameter("book_count")); // 책 갯수
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		String fullPath = "";
+
+		if (multi.getParameter("category").equals("API")) // API에서 받아온 이미지 라면
+		{
+			fullPath = multi.getParameter("image");
+		} else { // 사용자가 직접 올린 이미지라면
 			MultipartFile file = multi.getFile("upfile");
 			if (file.getSize() != 0) { // 클라이언트라 파일을 업로드 했다면
 				// 파일 이름
@@ -160,16 +162,15 @@ public class BookService {
 			board.setBook_count(i); // 동일한 책 번호(책 갯수)
 			board.setBorrowdate(borrowtime);
 			board.setRentaldate(rentaldate);
-			
-			String donation = multi.getParameter("donation"); 
-			if(donation == null || donation.trim().isEmpty()) { // 기증자가 없을 시
-			board.setDonation("없음"); }
-			else {
-			board.setDonation(donation); }
-			
+
+			String donation = multi.getParameter("donation");
+			if (donation == null || donation.trim().isEmpty()) { // 기증자가 없을 시
+				board.setDonation("없음");
+			} else {
+				board.setDonation(donation);
+			}
+
 			board.setHitbook(multi.getParameter("hitbook"));
-			
-			
 
 			System.out.println(board.getCategory());
 			System.out.println(board.getTitle_info());
@@ -187,7 +188,6 @@ public class BookService {
 		}
 
 		return "redirect:bookForm";
-	
 
 	}
 
@@ -232,23 +232,23 @@ public class BookService {
 	public void rentalProc(String no, String sessionId) { // 대여
 
 		int n = 1;
-		
-		try{
+
+		try {
 			n = Integer.parseInt(no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		LocalDateTime currentTime = LocalDateTime.now(); //대여 시간, 현재 시간 가져오기
-		LocalDateTime plusTime = currentTime.plus(Duration.ofDays(7)); //대여 시간
-		
-		Timestamp borrowtime = Timestamp.valueOf(currentTime); //형변환
-		Timestamp returntime = Timestamp.valueOf(plusTime); //형변환
+
+		LocalDateTime currentTime = LocalDateTime.now(); // 대여 시간, 현재 시간 가져오기
+		LocalDateTime plusTime = currentTime.plus(Duration.ofDays(7)); // 대여 시간
+
+		Timestamp borrowtime = Timestamp.valueOf(currentTime); // 형변환
+		Timestamp returntime = Timestamp.valueOf(plusTime); // 형변환
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		String rentaldate = plusTime.format(formatter);
-		
+
 		mapper.rentalProc(n, sessionId, borrowtime, rentaldate);
-		
+
 	}
 
 	public void returnProc(String no) { // 반납
@@ -363,15 +363,15 @@ public class BookService {
 					bookDTO.setPub_year_info(bookNode.path("pub_year_info").asText()); // 발행일
 					bookDTO.setReg_date(sdf.format(new Date())); // 등록 시간
 					bookDTO.setDetail_link(bookNode.path("detail_link").asText()); // 상세 정보
-					bookDTO.setImage(bookNode.path("image_url").asText()); //이미지 url
+					bookDTO.setImage(bookNode.path("image_url").asText()); // 이미지 url
 					bookDTO.setBorrowperson("대여 가능"); // 대여구분, 대여자
-					bookDTO.setBook_count(1);	// 책 갯수 고정
-					bookDTO.setDonation(" ");	// 기부자 없음
-					bookDTO.setBorrowdate(borrowtime); //대여 시작 시간 기본값
-					bookDTO.setRentaldate(sdf.format(new Date())); //대여 끝나는 시간 기본값
-					bookDTO.setHitbook(" "); //추천 도서
+					bookDTO.setBook_count(1); // 책 갯수 고정
+					bookDTO.setDonation(" "); // 기부자 없음
+					bookDTO.setBorrowdate(borrowtime); // 대여 시작 시간 기본값
+					bookDTO.setRentaldate(sdf.format(new Date())); // 대여 끝나는 시간 기본값
+					bookDTO.setHitbook(" "); // 추천 도서
 					bookList.add(bookDTO);
-				
+
 					mapper.bookRegistProc(bookDTO);
 
 				}
@@ -385,116 +385,154 @@ public class BookService {
 		model.addAttribute("apimessage", apimessage);
 	}
 
+	/*
+	 * public BookDTO bookdata() {
+	 * 
+	 * int n = 1;
+	 * 
+	 * BookDTO board = mapper.bookContent(n);
+	 * 
+	 * if (board != null) { System.out.println("image name = " + board.getImage());
+	 * 
+	 * if (board.getImage() != null && !board.getCategory().equals("API")) { //
+	 * API에서 받은 이미지가 아니면 String[] names = board.getImage().split("\\\\");
+	 * 
+	 * for (String name : names)
+	 * System.out.println("BoardService-boardContent name : " + name); String[]
+	 * fileNames = names[12].split("-", 2); for (String fileName : fileNames)
+	 * System.out.println("BoardService-boardContent fileName : " + fileName);
+	 * 
+	 * board.setImage(names[12]); } }
+	 * 
+	 * return board;
+	 */
 
-	
-/*	
-	public BookDTO bookdata() {
-		
-		int n = 1;
+	public ArrayList<BookDTO> BookData() {
 
-		BookDTO board = mapper.bookContent(n);
-
-		if (board != null) {
-			System.out.println("image name = " + board.getImage());
-
-			if (board.getImage() != null && !board.getCategory().equals("API")) { // API에서 받은 이미지가 아니면
-				String[] names = board.getImage().split("\\\\");
-
-				for (String name : names)
-					System.out.println("BoardService-boardContent name : " + name);
-				String[] fileNames = names[12].split("-", 2);
-				for (String fileName : fileNames)
-					System.out.println("BoardService-boardContent fileName : " + fileName);
-
-				board.setImage(names[12]);
-			}
-		}
-
-		return board;
-		*/
-	
-	
-	//메인화면 추천 도서
-	public void hit_book(Model model) {
-		
 		ArrayList<BookDTO> hitbooks = mapper.hitbooks();
-		if(hitbooks!=null) {
-			for(BookDTO b:hitbooks) {
-				if(b.getImage()==null || b.getImage().trim().isEmpty()) {
+		if (hitbooks != null) {
+			for (BookDTO b : hitbooks) {
+				if (b.getImage() == null || b.getImage().trim().isEmpty()) {
 					b.setImage("20240109150111-40641325628.20230718121618.jpg");
 					continue;
 				}
 				String[] names = b.getImage().split("\\\\");
-				//String[] names= b.getImage().split("/");
-				for(String name:names) {
-					System.out.println("name: " +name);
+				// String[] names= b.getImage().split("/");
+				for (String name : names) {
+					System.out.println("name: " + name);
 				}
-				//String[] fileNames= names[1].split("-",2); 
+				// String[] fileNames= names[1].split("-",2);
 				String[] fileNames = names[12].split("-", 2);
-				for(String fileName:fileNames) {
-					System.out.println("fileName: " +fileName);
+				for (String fileName : fileNames) {
+					System.out.println("fileName: " + fileName);
 				}
 				b.setImage(names[12]);
 			}
 		}
-		model.addAttribute("hitbooks", hitbooks);
+		return hitbooks;
 	}
 
-	public void new_book(Model model) {
-		ArrayList<BookDTO> newbooks = mapper.newbooks();
-		if(newbooks!=null) {
-			for(BookDTO b:newbooks) {
-				if(b.getImage()==null || b.getImage().trim().isEmpty()) {
+	public ArrayList<BookDTO> hitBook() {
+
+		ArrayList<BookDTO> hitbooks = mapper.hitbooks();
+		if (hitbooks != null) {
+			for (BookDTO b : hitbooks) {
+				if (b.getImage() == null || b.getImage().trim().isEmpty()) {
 					b.setImage("20240109150111-40641325628.20230718121618.jpg");
 					continue;
 				}
-				if(b.getCategory().equals("API")) //API에서 받아온 이미지 라면
+				String[] names = b.getImage().split("\\\\");
+				// String[] names= b.getImage().split("/");
+				for (String name : names) {
+					System.out.println("name: " + name);
+				}
+				// String[] fileNames= names[1].split("-",2);
+				String[] fileNames = names[12].split("-", 2);
+				for (String fileName : fileNames) {
+					System.out.println("fileName: " + fileName);
+				}
+				b.setImage(names[12]);
+			}
+		}
+		return hitbooks;
+	}
+
+	public ArrayList<BookDTO> newBook() {
+
+		ArrayList<BookDTO> newBooks = mapper.newbooks();
+		if (newBooks != null) {
+			for (BookDTO b : newBooks) {
+				if (b.getImage() == null || b.getImage().trim().isEmpty()) {
+					b.setImage("20240109150111-40641325628.20230718121618.jpg");
+					continue;
+				}
+				if (b.getCategory().equals("API")) // API에서 받아온 이미지 라면
 				{
 					continue;
 				}
 				String[] names = b.getImage().split("\\\\");
-				//String[] names= b.getImage().split("/");
-				for(String name:names) {
-					System.out.println("name: " +name);
-				}
-				//String[] fileNames= names[1].split("-",2); 
+//				for(String name:names) {
+//					System.out.println("newBooks name: " +name);
+//				}
 				String[] fileNames = names[12].split("-", 2);
-				for(String fileName:fileNames) {
-					System.out.println("fileName: " +fileName);
-				}
+//				for(String fileName:fileNames) {
+//					System.out.println("newBooks fileName: " +fileName);
+//				}
 				b.setImage(names[12]);
 			}
 		}
-		model.addAttribute("newbooks", newbooks);
+		return newBooks;
+	}
 
+	public List<Map<String, Object>> dataStatus(BookDTO board) {
+		String query = "SELECT category, COUNT(*) as bookCount, SUM(COUNT(*)) OVER() as totalBookCount FROM book GROUP BY category";
+		List<Map<String, Object>> result = jdbcTemplate.queryForList(query); // 위에 오토와이드 있음
+
+		for (Map<String, Object> row : result) {
+			System.out.println("Category: " + row.get("category"));
+			System.out.println("Book Count: " + row.get("bookCount"));
+			System.out.println("Total Book Count: " + row.get("totalBookCount"));
+		}
+		return result;
+	}
+
+	/////////////
+	public List<BookDTO> requestMyBook(String id) {	
+		return mapper.myBook(id);		
+	}
+
+	public void borrowDateExtend(String no, String id) {
+	
+	    int n = 1;
+		  
+	    try {
+	        n = Integer.parseInt(no);
+	    } catch (Exception e) {
+	        
+	    }
+	   
+	    BookDTO board = mapper.bookContent(n);
+	    
+	    Timestamp storedTime = board.getBorrowdate();
+	    LocalDateTime storedLocalDateTime = storedTime.toLocalDateTime();
+	    LocalDateTime rentalday = storedLocalDateTime.plus(Duration.ofDays(14));
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	    String rentaldate = rentalday.format(formatter);
+
+	    mapper.borrowDateExtend(n, id, rentaldate);
 		
 	}
 
-	public ArrayList<BookDTO> BookData() {
-	      
-	      ArrayList<BookDTO> hitbooks = mapper.hitbooks();
-	      if(hitbooks!=null) {
-	         for(BookDTO b:hitbooks) {
-	            if(b.getImage()==null || b.getImage().trim().isEmpty()) {
-	               b.setImage("20240109150111-40641325628.20230718121618.jpg");
-	               continue;
-	            }
-	            String[] names = b.getImage().split("\\\\");
-	            //String[] names= b.getImage().split("/");
-	            for(String name:names) {
-	               System.out.println("name: " +name);
-	            }
-	            //String[] fileNames= names[1].split("-",2); 
-	            String[] fileNames = names[12].split("-", 2);
-	            for(String fileName:fileNames) {
-	               System.out.println("fileName: " +fileName);
-	            }
-	            b.setImage(names[12]);
-	         }
-	      }
-	      return hitbooks;
-	   }
+	public void requestreturnProc2(String no) {
+		int n = 1;
+		try {
+			n = Integer.parseInt(no);
+		} catch (Exception e) {
+		}
 
+		String borrowperson = "대여 가능";
 
+		mapper.returnProc2(n, borrowperson);
+	}
 
 }
