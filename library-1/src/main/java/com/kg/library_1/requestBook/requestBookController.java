@@ -20,51 +20,51 @@ import com.kg.library_1.book.BookService;
 
 @Controller
 public class requestBookController {
-
-	@Autowired requestBookService service;
-	
-	@Autowired
-    private BookService bookservice;
-	
-    @RequestMapping(value = "/redirectToLogin", method = RequestMethod.GET) //페이지 연결 //redirect는 get으로 요청.
-    public ModelAndView redirectToLogin() {
-    	System.out.println("dlrj dho dksehla?");
-        return new ModelAndView("redirect:http://localhost:80/login"); // 외부 서버의 jsp로 연결하고 싶으면 redirect 써야 됨.
-    }
-	
-/*
-    @GetMapping("bookdata") //DB 자료 가공해서 return으로 데이터를 넘김
-    public BookDTO bookdata() {
-        BookDTO dataFromDB = bookservice.bookdata();
-        return dataFromDB;
-    }
-*/  
-	
-    @PostMapping("requestbookForm") //return으로 데이터를 넘김
-    public ResponseEntity<String> requestbookForm(@RequestBody String requestBody) {//외부 서버 데이터 받기
-        // 요청 바디를 받아서 처리하는 로직을 작성
-        System.out.println("Received request body: " + requestBody);
-
-        // 응답 생성 (예: "Request received successfully"라는 메시지를 응답)
-        String responseBody = "Request received successfully";
-        return ResponseEntity.ok(responseBody);
-    }
-    
-    @GetMapping("/BookData")
-    @ResponseBody 
-    public String BookData(){
-    	System.out.println("뭘 못찾아 ㅅㅂ");
-    	return "ㄴㅁ이라ㅓㅏ";
-   /* public ArrayList<BookDTO> BookData() {
-       ArrayList<BookDTO> hitbooks = bookservice.BookData();
-         for (BookDTO b : hitbooks) {
-              System.out.println(b.getNo());
-              System.out.println(b.getImage());
-              System.out.println(b.getTitle_info());
-              System.out.println(b.getAuthor_info());
-           }
-        return hitbooks; */
-    }
-    
+//
+//	@Autowired requestBookService service;
+//	
+//	@Autowired
+//    private BookService bookservice;
+//	
+//    @RequestMapping(value = "/redirectToLogin", method = RequestMethod.GET) //페이지 연결 //redirect는 get으로 요청.
+//    public ModelAndView redirectToLogin() {
+//    	System.out.println("dlrj dho dksehla?");
+//        return new ModelAndView("redirect:http://localhost:80/login"); // 외부 서버의 jsp로 연결하고 싶으면 redirect 써야 됨.
+//    }
+//	
+///*
+//    @GetMapping("bookdata") //DB 자료 가공해서 return으로 데이터를 넘김
+//    public BookDTO bookdata() {
+//        BookDTO dataFromDB = bookservice.bookdata();
+//        return dataFromDB;
+//    }
+//*/  
+//	
+//    @PostMapping("requestbookForm") //return으로 데이터를 넘김
+//    public ResponseEntity<String> requestbookForm(@RequestBody String requestBody) {//외부 서버 데이터 받기
+//        // 요청 바디를 받아서 처리하는 로직을 작성
+//        System.out.println("Received request body: " + requestBody);
+//
+//        // 응답 생성 (예: "Request received successfully"라는 메시지를 응답)
+//        String responseBody = "Request received successfully";
+//        return ResponseEntity.ok(responseBody);
+//    }
+//    
+//    @GetMapping("/BookData")
+//    @ResponseBody 
+//    public String BookData(){
+//    	System.out.println("뭘 못찾아 ㅅㅂ");
+//    	return "ㄴㅁ이라ㅓㅏ";
+//   /* public ArrayList<BookDTO> BookData() {
+//       ArrayList<BookDTO> hitbooks = bookservice.BookData();
+//         for (BookDTO b : hitbooks) {
+//              System.out.println(b.getNo());
+//              System.out.println(b.getImage());
+//              System.out.println(b.getTitle_info());
+//              System.out.println(b.getAuthor_info());
+//           }
+//        return hitbooks; */
+//    }
+//    
     
 }

@@ -3,7 +3,7 @@ import java.sql.Timestamp;
 
 /*
 *도서 등록(book)
-순서 - 번호(1),카테고리(2),제목(3),저작자(4),발행자(5),발행년도(6),비치일(7),상세페이지경로(8),이미지(9), 빌린 사람(10) ,책 번호(책 갯수)(11), 기증자(12),빌린 시간(13),추천 도서(14)
+순서 - 번호(1),카테고리(2),제목(3),저작자(4),발행자(5),발행년도(6),비치일(7),상세페이지경로(8),이미지(9), 빌린 사람(10) ,책 번호(책 갯수)(11), 기증자(12),빌린 시간(13),빌린 기간(14)추천 도서(15)
 
 create table book(
 no number not null,
@@ -28,6 +28,26 @@ alter table book modify pub_info varchar2(500);
 ALTER TABLE book ADD rentaldate VARCHAR2(50);
 alter table book add hitbook varchar2(50);
 alter table book modify detail_link varchar2(1000);
+
+//mariadb
+CREATE TABLE book (
+  no INT AUTO_INCREMENT PRIMARY KEY,
+  category VARCHAR(50) NOT NULL,
+  title_info VARCHAR(500),
+  author_info VARCHAR(500),
+  pub_info VARCHAR(500),
+  pub_year_info VARCHAR(50),
+  reg_date VARCHAR(50),
+  detail_link VARCHAR(200),
+  image VARCHAR(255),
+  borrowperson VARCHAR(50),
+  book_count INT,
+  donation VARCHAR(50),
+  borrowdate TIMESTAMP,
+  rentaldate VARCHAR(50),
+  hitbook VARCHAR(50)
+);
+
 
 */
 public class BookDTO {

@@ -15,6 +15,26 @@ pub_info varchar2(500),
 pub_year_info varchar2(50),
 reason varchar2(200),
 hopedate varchar2(30);
+
+//mariadb
+CREATE TABLE bookHope (
+  no INT AUTO_INCREMENT PRIMARY KEY,
+  board_title VARCHAR(255),
+  hope_user VARCHAR(100),
+  category VARCHAR(50),
+  title_info VARCHAR(500),
+  author_info VARCHAR(500),
+  pub_info VARCHAR(500),
+  pub_year_info VARCHAR(50),
+  reason VARCHAR(200),
+  hopedate VARCHAR(30)
+);
+
+
+
+
+
+
 */
 
 public class BookHopeDTO {

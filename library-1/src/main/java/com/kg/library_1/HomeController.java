@@ -16,24 +16,24 @@ import com.kg.library_1.book.BookService;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private BookService Book_Service;
-	
-	@RequestMapping("index")
-	public void index() {}
+//	@Autowired
+//	private BookService Book_Service;
+//	
+//	@RequestMapping("index")
+//	public void index() {}
 	
 	@RequestMapping("header")
 	public String header() {
 		return "default/header";
 	}	
 	
-	@RequestMapping("main")
-	public String main(Model model) {
-	//	Book_Service.hit_book(model);
-	//	Book_Service.new_book(model);
-		return "default/main";
-	}
-	
+//	@RequestMapping("main")
+//	public String main(Model model) {
+//	//	Book_Service.hit_book(model);
+//	//	Book_Service.new_book(model);
+//		return "default/main";
+//	}
+//	
 	@RequestMapping("footer")
 	public String footer() {
 		return "default/footer";

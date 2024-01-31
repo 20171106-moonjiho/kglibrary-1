@@ -34,13 +34,13 @@ public class BookController {
 	public String bookForm(String search,Model model,
 			@RequestParam(value="currentPage", required = false)String cp, String select, 
 			@RequestParam(name = "parameterName", required = false) String Id) {
-		if(Id != null && !Id.trim().isEmpty())	
-		session.setAttribute("id", Id);
-		
-		session.setAttribute("id", "admin");
-		
-		String sessionId = (String) session.getAttribute("id");
-		System.out.println("bookform id 확인." + sessionId);
+//		if(Id != null && !Id.trim().isEmpty())	
+//		session.setAttribute("id", Id);
+//		
+//		session.setAttribute("id", "admin");
+//		
+//		String sessionId = (String) session.getAttribute("id");
+//		System.out.println("bookform id 확인." + sessionId);
 			
 		//검색 시 select 값으로 검색(search) 확인.
 			if(search == null || search.trim().isEmpty()) {

@@ -10,6 +10,20 @@ content varchar2(1000),
 reg_date varchar2(20),
 PRIMARY KEY (no)
 );
+
+//mariadb
+CREATE TABLE book_donate (
+  no INT,
+  id VARCHAR(30),
+  subject VARCHAR(100),
+  book_no INT,
+  method VARCHAR(50),
+  content VARCHAR(1000),
+  reg_date VARCHAR(20),
+  PRIMARY KEY (no)
+);
+
+
  */
 public class DonateDTO {
 	private int no;
