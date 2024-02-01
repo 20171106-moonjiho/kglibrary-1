@@ -15,45 +15,48 @@
 		INSERT INTO bookHope (no, board_title, hope_user, category,
 		title_info,
 		author_info, pub_info, pub_year_info, reason, hopedate)
-		VALUES (#{no}, #{board_title}, #{hope_user}, #{category}, #{title_info},
-		#{author_info}, #{pub_info}, #{pub_year_info}, #{reason}, #{hopedate})
+		VALUES (#{no}, #{board_title}, #{hope_user}, #{category},
+		#{title_info},
+		#{author_info}, #{pub_info}, #{pub_year_info},
+		#{reason}, #{hopedate})
 	</insert>
 
 	<select id="totalCount" resultType="int">
 		SELECT COUNT(no) FROM bookHope
-		<choose>
-			<when test="select == 'board_title'">
-				WHERE title_info LIKE CONCAT('%', #{search}, '%')
-			</when>
-			<when test="select == 'hope_user'">
-				WHERE hope_user LIKE CONCAT('%', #{search}, '%')
-			</when>
-			<otherwise>
-				SELECT COUNT(no) FROM bookHope
-			</otherwise>
-		</choose>
+		<where>
+			<choose>
+				<when test="select == 'board_title'">
+					AND title_info LIKE CONCAT('%', #{search}, '%')
+				</when>
+				<when test="select == 'hope_user'">
+					AND hope_user LIKE CONCAT('%', #{search}, '%')
+				</when>
+			</choose>
+		</where>
 	</select>
+
 
 	<select id="bookHopeForm"
 		resultType="com.kg.library_1.bookHope.BookHopeDTO">
 		SELECT B.* FROM (
-		SELECT ROW_NUMBER() OVER (ORDER BY no DESC) as r, A.* FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY no DESC) as r, A.*
+		FROM (
 		SELECT * FROM bookHope
-		<choose>
-			<when test="select == 'board_title'">
-				WHERE board_title LIKE CONCAT('%', #{search}, '%')
-			</when>
-			<when test="select == 'hope_user'">
-				WHERE hope_user LIKE CONCAT('%', #{search}, '%')
-			</when>
-			<otherwise>
-				SELECT * FROM bookHope
-			</otherwise>
-		</choose>
+		<where>
+			<choose>
+				<when test="select == 'board_title'">
+					AND board_title LIKE CONCAT('%', #{search}, '%')
+				</when>
+				<when test="select == 'hope_user'">
+					AND hope_user LIKE CONCAT('%', #{search}, '%')
+				</when>
+			</choose>
+		</where>
 		ORDER BY no DESC
 		) A
 		) B WHERE B.r BETWEEN #{begin} AND #{end}
 	</select>
+
 
 	<select id="bookHopeContent"
 		resultType="com.kg.library_1.bookHope.BookHopeDTO">

@@ -17,7 +17,7 @@ public class DonateController {
 @Autowired private HttpSession session;	
 	
 	// 도서 기증 목록보기--------------------------------
-	@RequestMapping("/donateForm")
+	@RequestMapping("book/donateForm")
 	public String donateForm(String search, Model model, 
 			@RequestParam(value="currentPage", required = false)String cp) {
 		String select = "select";
@@ -32,7 +32,7 @@ public class DonateController {
 	}
 	
 	// 도서 기증--------------------------------
-	@GetMapping("/donateWrite")
+	@GetMapping("book/donateWrite")
 	public String donateWrite(Model model) {	
 		String msg = "";
 		String sessionId = (String)session.getAttribute("id");
@@ -45,7 +45,7 @@ public class DonateController {
 	}
 	
 	// 도서 기증 신청하기--------------------------------
-	@PostMapping("/donateWriteProc")
+	@PostMapping("book/donateWriteProc")
 	public String donateWriteProc(DonateDTO donate, Model model) {
 		String msg = "";
 		if(donate.getContent()==""||donate.getContent().trim().isEmpty()) {
@@ -59,7 +59,7 @@ public class DonateController {
 		return "redirect:donateForm";
 	}
 	// 도서 기증 상세보기 --------------------------------
-	@RequestMapping("donateContent")
+	@RequestMapping("book/donateContent")
 	public String donateContent(String no, Model model, RedirectAttributes ra) {
 		String msg = "";
 		DonateDTO board = service.donateContent(no);
@@ -81,19 +81,19 @@ public class DonateController {
 		return "donate/donateContent";
 	}
 	// 도서 기증 안내서   --------------------------------
-	@RequestMapping("donateguide")
+	@RequestMapping("book/donateguide")
 	public String donateguide(Model model) {
 		model.addAttribute("menu", "donateguide");
 		return "donate/donateguide";
 	}
 	
 	// 도서 기증 사이드바 --------------------------------
-	@RequestMapping("donateheader")
+	@RequestMapping("book/donateheader")
 	public String donateheader() {
 		return "donate/donateheader";
 	}
 	
-	@RequestMapping("donatefooter")
+	@RequestMapping("book/donatefooter")
 	public String donatefooter() {
 		return "donate/donatefooter";
 	}

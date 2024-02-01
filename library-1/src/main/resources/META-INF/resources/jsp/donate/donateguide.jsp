@@ -33,8 +33,8 @@
 </style>
 </head>
 <body>
-	<c:import url="/header" />
-	<c:import url="/donateheader" />
+	<%@ include file="/jsp/default/header.jsp" %>
+	<%@ include file="/jsp/donate/donateheader.jsp" %>	
 
 	<div id="contents">
 		<div id="print_wrap">
@@ -65,7 +65,7 @@
 			<a href="donateWrite">신청하기</a>
 		</div>
 	</div>
-	<c:import url="/noticefooter" />
-	<c:import url="/footer" />
+	<%@ include file="/jsp/donate/donatefooter.jsp" %>
+	<%@ include file="/jsp/default/footer.jsp" %>
 </body>
 </html>

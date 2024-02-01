@@ -8,10 +8,10 @@
 <meta charset="UTF-8">
 <title>도서검색</title>
 </head>
-<link href="book2.css" rel="stylesheet">
+<link href="../book2.css" rel="stylesheet">
 <body>
-	<c:import url="/header" />
-	<c:import url="/bookheader" />
+<%@ include file="/jsp/default/header.jsp" %>
+<%@ include file="/jsp/book/bookheader.jsp" %>
 	<div id="cont_head">
 		<h2>도서검색</h2>
 		<!-- 현재위치 -->
@@ -26,7 +26,7 @@
 	</div>
 	<div id="cont_wrap">
 		<div id="board" style="width: 100%;">
-			<form action="bookForm">
+			<form action="book/bookForm">
 				<span> ▷ 총 ${count }개의 검색 결과가 있습니다. </span> <span class="center">
 					<select class="selectBox" name="select">
 						<option value="title" selected="selected">제목</option>
@@ -58,7 +58,7 @@
 							<tr>
 								<td class="center">${board.no }</td>
 								<td class="left"
-									onclick="location.href='bookContent?no=${board.no }'">
+									onclick="location.href='book/bookContent?no=${board.no }'">
 									${board.title_info }</td>
 								<td class="center">${board.author_info }</td>
 								<td class="center">${board.reg_date }</td>
@@ -79,7 +79,8 @@
 			</c:choose>
 		</div>
 	</div>
-	<c:import url="/bookfooter" />
-	<c:import url="/footer" />
+	<%@ include file="/jsp/book/bookfooter.jsp" %>
+	<%@ include file="/jsp/default/footer.jsp" %>
+
 </body>
 </html>

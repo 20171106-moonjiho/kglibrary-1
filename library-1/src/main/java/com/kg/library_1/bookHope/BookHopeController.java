@@ -20,18 +20,11 @@ public class BookHopeController {
 	@Autowired 
 	private HttpSession session;
 	
-	@RequestMapping("bookHopeForm") // 희망 도서 url
+	@RequestMapping("book/bookHopeForm") // 희망 도서 url
 	public String bookHopeForm(String search,Model model,
 			@RequestParam(value="currentPage", required = false)String cp, String select, 
 			@RequestParam(name = "parameterName", required = false) String Id) {
-		if(Id != null && !Id.trim().isEmpty()) {	
-		session.setAttribute("id", Id);
-		}
-		System.out.println("idddddddd" + Id);
-		String sessionId = (String)session.getAttribute("id");
-		System.out.println("bookhope 확인." + sessionId);
-		
-			//검색 시 select 값으로 검색(search) 확인.
+
 			if(search == null || search.trim().isEmpty()) {
 				search = ""; select = "title"; 
 			}
@@ -41,7 +34,7 @@ public class BookHopeController {
 		return "bookHope/bookHopeForm";
 	}
 	
-	@RequestMapping("bookHopeRegist") //도서 등록 url
+	@RequestMapping("book/bookHopeRegist") //도서 등록 url
 	public String bookHopeRegist(Model model) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || sessionId.trim().isEmpty()) {
@@ -51,7 +44,7 @@ public class BookHopeController {
 			return "bookHope/bookHopeRegist";
 	}
 	
-	@RequestMapping("bookHopeRegistProc")
+	@RequestMapping("book/bookHopeRegistProc")
 	public String bookHopeRegistProc(BookHopeDTO bookHopeDTO, RedirectAttributes ra) {
 
 		
@@ -59,7 +52,7 @@ public class BookHopeController {
 		return path;
 	}
 	
-	@RequestMapping("bookHopeContent")
+	@RequestMapping("book/bookHopeContent")
 	public String bookHopeContent(String no,Model model) {
 		
 		BookHopeDTO board = service.bookHopeContent(no, model);
@@ -72,7 +65,7 @@ public class BookHopeController {
 		return "bookHope/bookHopeContent";
 	}
 	
-	@RequestMapping("bookHopeDeleteProc")
+	@RequestMapping("book/bookHopeDeleteProc")
 	public String bookHopeDeleteProc(String no) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || sessionId.trim().isEmpty()) {

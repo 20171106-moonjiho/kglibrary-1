@@ -30,7 +30,7 @@ public class BookController {
 	@Autowired 
 	private HttpSession session;
 	
-	@RequestMapping("bookForm") // 도서 검색 url
+	@RequestMapping("book/bookForm") // 도서 검색 url
 	public String bookForm(String search,Model model,
 			@RequestParam(value="currentPage", required = false)String cp, String select, 
 			@RequestParam(name = "parameterName", required = false) String Id) {
@@ -53,7 +53,7 @@ public class BookController {
 		return "book/bookForm";
 	}
 	
-	@RequestMapping("bookRegist") //도서 등록 url
+	@RequestMapping("book/bookRegist") //도서 등록 url
 	public String bookRegist(Model model) {
 	
 		String sessionId = (String) session.getAttribute("id");
@@ -69,14 +69,14 @@ public class BookController {
 		return "book/bookRegist";
 	}
 	
-	@RequestMapping("bookRegistProc")
+	@RequestMapping("book/bookRegistProc")
 	public String bookRegistProc(MultipartHttpServletRequest multi, RedirectAttributes ra) {
 
 		String path = service.bookRegistProc(multi);
 		return path;
 	}
 	
-	@RequestMapping("bookContent")
+	@RequestMapping("book/bookContent")
 	public String bookContent(String no,Model model) {
 		
 		BookDTO board = service.bookContent(no, model);
@@ -89,7 +89,7 @@ public class BookController {
 		return "book/bookContent";
 	}
 	
-	@RequestMapping("rentalProc")
+	@RequestMapping("book/rentalProc")
 	public String rentalProc(String no) {
 			
 		String sessionId = (String) session.getAttribute("id");
@@ -100,7 +100,7 @@ public class BookController {
 		return "redirect:bookContent";	
 	}
 	
-	@RequestMapping("returnProc")
+	@RequestMapping("book/returnProc")
 	public String returnProc(String no) {
 			
 		
@@ -112,7 +112,7 @@ public class BookController {
 		return "redirect:bookContent";	
 	}
 	
-	@RequestMapping("bookDeleteProc")
+	@RequestMapping("book/bookDeleteProc")
 	public String bookDeleteProc(String no) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || !sessionId.equals("admin") || sessionId.trim().isEmpty()) {
@@ -123,7 +123,7 @@ public class BookController {
 		return "redirect:bookForm";	
 	}
 
-	@RequestMapping("apiBookRegist") //도서 등록 url
+	@RequestMapping("book/apiBookRegist") //도서 등록 url
 	public String apiBookRegist(Model model) {
 		
 		String sessionId = (String)session.getAttribute("id");
@@ -136,7 +136,7 @@ public class BookController {
 		return "book/apiBookRegist";
 	}
 	
-	@RequestMapping("apiRegistProc") //도서 등록
+	@RequestMapping("book/apiRegistProc") //도서 등록
 	public String apiRegistProc(String pageNum, String select, String search, Model model,
 			@RequestParam(name = "parameterName", required = false) String Id) {
 		if(Id != null && !Id.trim().isEmpty())	
@@ -157,14 +157,8 @@ public class BookController {
 		return "book/apiAlert";
 	}
 	
-	//로그인 해야 할 때 요청 보내는 Mapping 및 sessionID 받는 값 필요.
-	@RequestMapping("requestLogin")
-	public void requestLogin() {
-		
-		
-	}
 	
-	@GetMapping("hit_book")
+	@GetMapping("book/hit_book")
 	 @ResponseBody
 	    public ArrayList<BookDTO> hitBook() {
 		   try {
@@ -187,7 +181,7 @@ public class BookController {
 	            return new ArrayList<>(); // 빈 리스트 또는 에러 응답을 반환할 수 있음
 	        }
 	    }
-	 @GetMapping("new_Book")
+	 @GetMapping("book/new_Book")
 	 @ResponseBody
 	    public ArrayList<BookDTO> newBook() {
 		   try {
@@ -213,7 +207,7 @@ public class BookController {
 	        }
 	    }
 	
-	 @GetMapping("dataStatus")
+	 @GetMapping("book/dataStatus")
 	 @ResponseBody
 	    public List<Map<String, Object>> dataStatus(BookDTO board, Model model) {
 		   try {
@@ -237,7 +231,7 @@ public class BookController {
 	
 	/////////////////////////////////
 	 
-	    @PostMapping("requestMyBook") //return으로 데이터를 넘김
+	    @PostMapping("book/requestMyBook") //return으로 데이터를 넘김
 	    public ResponseEntity<String> requestMyBook(@RequestBody Map<String, String> requestBody) {//외부 서버 데이터 받기
 	        // 요청 바디를 받아서 처리하는 로직을 작성
 	    	String reID = requestBody.get("id");
@@ -264,7 +258,7 @@ public class BookController {
 	        return ResponseEntity.ok(myBookJson);
 	    }
 	 
-	    @PostMapping("requestDateExtend") //return으로 데이터를 넘김
+	    @PostMapping("book/requestDateExtend") //return으로 데이터를 넘김
 	    public ResponseEntity<String> requestDateExtend(@RequestBody Map<String, String> requestBody) {//외부 서버 데이터 받기
 	        // 요청 바디를 받아서 처리하는 로직을 작성
 	    	String id = requestBody.get("id");
@@ -277,7 +271,7 @@ public class BookController {
 	        return ResponseEntity.ok(responseBody);
 	    }
 	
-	    @PostMapping("requestreturnProc2") //return으로 데이터를 넘김
+	    @PostMapping("book/requestreturnProc2") //return으로 데이터를 넘김
 	    public ResponseEntity<String> requestreturnProc2(@RequestBody Map<String, String> requestBody) {//외부 서버 데이터 받기
 	        // 요청 바디를 받아서 처리하는 로직을 작성
 	    	String no = requestBody.get("no");

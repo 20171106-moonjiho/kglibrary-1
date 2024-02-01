@@ -22,11 +22,11 @@ public class HomeController {
 //	@RequestMapping("index")
 //	public void index() {}
 	
-	@RequestMapping("header")
+	@RequestMapping("book/header")
 	public String header() {
 		return "default/header";
 	}	
-	
+//	
 //	@RequestMapping("main")
 //	public String main(Model model) {
 //	//	Book_Service.hit_book(model);
