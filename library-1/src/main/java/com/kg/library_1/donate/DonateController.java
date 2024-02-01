@@ -38,7 +38,7 @@ public class DonateController {
 		String sessionId = (String)session.getAttribute("id");
 		if(sessionId == null) {
 			msg="로그인 후 가능합니다.";
-			return "redirect:login";
+			return "redirect:../login";
 		}
 		model.addAttribute("menu", "donateWrite");
 		return "donate/donateWrite";
@@ -68,7 +68,7 @@ public class DonateController {
 			return "redirect:donateForm";
 		}
 		if(sessionId == null) {
-			return "redirect:login";
+			return "redirect:../login";
 		}
 		if(!sessionId.equals(board.getId())) {
 			msg="작성자만 확인가능합니다.";

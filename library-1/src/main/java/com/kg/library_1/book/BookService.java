@@ -72,7 +72,7 @@ public class BookService {
 
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null)
-			return "redirect:login";
+			return "redirect:../login";
 
 		LocalDateTime currentTime = LocalDateTime.now(); // 현재 시간 가져오기
 		LocalDateTime plusTime = currentTime.plus(Duration.ofDays(7));

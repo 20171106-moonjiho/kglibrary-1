@@ -55,7 +55,7 @@ public class BookHopeService {
 			
 			String sessionId = (String) session.getAttribute("id");
 			if (sessionId == null)
-				return "redirect:login";
+				return "redirect:../login";
 			
 			BookHopeDTO board = new BookHopeDTO();
 			

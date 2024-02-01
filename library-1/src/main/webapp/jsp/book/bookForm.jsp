@@ -8,10 +8,10 @@
 <meta charset="UTF-8">
 <title>도서검색</title>
 </head>
-<link href="book2.css" rel="stylesheet">
+<link href="../book2.css" rel="stylesheet">
 <body>
-	<c:import url="/header" />
-	<c:import url="/bookheader" />
+	<c:import url="../header" />
+	<c:import url="../bookheader" />
 	<div id="cont_head">
 		<h2>도서검색</h2>
 		<!-- 현재위치 -->
@@ -79,7 +79,7 @@
 			</c:choose>
 		</div>
 	</div>
-	<c:import url="/bookfooter" />
-	<c:import url="/footer" />
+	<c:import url="../bookfooter" />
+	<c:import url="../footer" />
 </body>
 </html>

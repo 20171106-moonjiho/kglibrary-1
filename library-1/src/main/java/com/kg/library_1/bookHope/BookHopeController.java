@@ -38,7 +38,7 @@ public class BookHopeController {
 	public String bookHopeRegist(Model model) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || sessionId.trim().isEmpty()) {
-			return "redirect:login";
+			return "redirect:../login";
 		}
 		model.addAttribute("menu", "board2");
 			return "bookHope/bookHopeRegist";
@@ -69,7 +69,7 @@ public class BookHopeController {
 	public String bookHopeDeleteProc(String no) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || sessionId.trim().isEmpty()) {
-			return "redirect:login";
+			return "redirect:../login";
 		}
 		
 		service.bookHopeDeleteProc(no);

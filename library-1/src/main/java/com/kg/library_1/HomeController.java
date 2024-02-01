@@ -22,21 +22,21 @@ public class HomeController {
 //	@RequestMapping("index")
 //	public void index() {}
 	
-	@RequestMapping("book/header")
-	public String header() {
-		return "default/header";
-	}	
-//	
-//	@RequestMapping("main")
-//	public String main(Model model) {
-//	//	Book_Service.hit_book(model);
-//	//	Book_Service.new_book(model);
-//		return "default/main";
+//	@RequestMapping("book/header")
+//	public String header() {
+//		return "default/header";
+//	}	
+////	
+////	@RequestMapping("main")
+////	public String main(Model model) {
+////	//	Book_Service.hit_book(model);
+////	//	Book_Service.new_book(model);
+////		return "default/main";
+////	}
+////	
+//	@RequestMapping("book/footer")
+//	public String footer() {
+//		return "default/footer";
 //	}
-//	
-	@RequestMapping("footer")
-	public String footer() {
-		return "default/footer";
-	}
 
 }

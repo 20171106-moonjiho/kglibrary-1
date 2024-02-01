@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
-	<link href="common.css" rel="stylesheet">
-	<link href="main.css" rel="stylesheet"> 
-	<link href="notice.css" rel="stylesheet">
-	<link href="swiper.css" rel="stylesheet">
+	<link href="../common.css" rel="stylesheet">
+	<link href="../main.css" rel="stylesheet"> 
+	<link href="../notice.css" rel="stylesheet">
+	<link href="../swiper.css" rel="stylesheet">
  	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
  	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-	<script src="script-3.js"></script>
-	<script src="header.js"></script>
+	<script src="../script-3.js"></script>
+	<script src="../header.js"></script>
 <div id="wrap">
 		<!--메뉴 시작-->
 		<div class="header_top" style="height:40px; background: #8C8C8C"></div>
@@ -22,29 +22,29 @@
 					</div>
 					<ul class="aside_menu">	
 
-						<li class="login">
+						<li class="../login">
 							<c:choose>
 								<c:when test="${empty sessionScope.id }">
-									<a href="redirectToLogin">로그인</a>
+									<a href="../login">로그인</a>
 								</c:when>
 								<c:otherwise>
-									<a href="logout">로그아웃</a>
+									<a href="../logout">로그아웃</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
-						<li class="join">
+						<li class="../join">
 							<c:choose>
 								<c:when test="${empty sessionScope.id }">
-									<a href="terms">회원가입</a>
+									<a href="../terms">회원가입</a>
 								</c:when>
 								<c:otherwise>
-									<a href="userInfo">마이페이지</a>
+									<a href="../userInfo">마이페이지</a>
 								</c:otherwise>
 							</c:choose>
 						</li>	
 						<c:if test="${sessionScope.id eq 'admin' }">
-							<li class="admin">
-							<a href="admin">관리자페이지</a>
+							<li class="../admin">
+							<a href="../admin">관리자페이지</a>
 							</li>
 						</c:if>	
 					</ul>
@@ -74,21 +74,20 @@
 								</ul>
 						</div>
 					</li>
-					<li><a href="#">이용안내</a>
+					<li><a href="../guide_room">이용안내</a>
 						<div class="two_depth">
-								<p class="bmenu_tit">이용안내</p>
+								<p class="../bmenu_tit">이용안내</p>
 								<ul>	
-									<li><a href="#" >열람실 이용안내
+									<li><a href="../guide_room" >열람실 이용안내
 									</a></li>
-									<li><a href="#" >성수도서관 VR 투어
+									<li><a href="../guide_join" >회원가입 안내
 									</a></li>
-									<li><a href="#" >회원가입 안내
-									</a></li>
-									<li><a href="#" >도서대출/반납
+									<li><a href="../guide_book" >도서대출/반납
 									</a></li>
 								</ul>
 						</div>
 					</li>
+					<!-- 
 					<li><a href="#">디지털도서관</a>
 						<div class="two_depth">
 								<p class="bmenu_tit">자료검색</p>
@@ -104,17 +103,12 @@
 								</ul>
 						</div>
 					</li>
-					<li><a href="#">문화마당</a>
+					  -->
+					<li><a href="../cultureboard">문화마당</a>
 						<div class="two_depth">
-								<p class="bmenu_tit">자료검색</p>
+								<p class="../bmenu_tit">자료검색</p>
 								<ul>	
-									<li><a href="#" >통합자료 검색
-									</a></li>
-									<li><a href="#" >신착자료 검색
-									</a></li>
-									<li><a href="#" >대출 베스트
-									</a></li>
-									<li><a href="#" >정기간행물
+									<li><a href="../cultureboard" >문화행사
 									</a></li>
 								</ul>
 						</div>
@@ -143,30 +137,28 @@
 								</ul>
 						</div>
 					</li>
-					<li><a href="#">도서관소개</a>
+					<li><a href="../introduction">도서관소개</a>
 						<div class="two_depth">
-								<p class="bmenu_tit">자료검색</p>
+								<p class="../bmenu_tit">자료검색</p>
 								<ul>	
-									<li><a href="#" >통합자료 검색
+									<li><a href="../introduction" >인사말
 									</a></li>
-									<li><a href="#" >신착자료 검색
+									<li><a href="../dataStatus" >자료 현황
 									</a></li>
-									<li><a href="#" >대출 베스트
-									</a></li>
-									<li><a href="#" >정기간행물
+									<li><a href="../map" >찾아오시는길
 									</a></li>
 								</ul>
 						</div>
 					</li>
-					<li><a href="noticeBoard">이용자마당</a>
+					<li><a href="../noticeBoard">이용자마당</a>
 						<div class="two_depth">
 								<p class="bmenu_tit">자료검색</p>
 								<ul>	
-									<li><a href="noticeBoard" >공지사항
+									<li><a href="../noticeBoard" >공지사항
 									</a></li>
-									<li><a href="ask_board" >묻고 답하기
+									<li><a href="../ask_board" >묻고 답하기
 									</a></li>
-									<li><a href="noticeboard_cal" >도서관 일정
+									<li><a href="../noticeboard_cal" >도서관 일정
 									</a></li>
 								</ul>
 						</div>
