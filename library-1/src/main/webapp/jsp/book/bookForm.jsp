@@ -10,8 +10,8 @@
 </head>
 <link href="../book2.css" rel="stylesheet">
 <body>
-	<c:import url="../header" />
-	<c:import url="../bookheader" />
+<%@ include file="/jsp/default/header.jsp" %>
+<%@ include file="/jsp/book/bookheader.jsp" %>
 	<div id="cont_head">
 		<h2>도서검색</h2>
 		<!-- 현재위치 -->
@@ -79,7 +79,8 @@
 			</c:choose>
 		</div>
 	</div>
-	<c:import url="../bookfooter" />
-	<c:import url="../footer" />
+	<%@ include file="/jsp/book/bookfooter.jsp" %>
+	<%@ include file="/jsp/default/footer.jsp" %>
+
 </body>
 </html>

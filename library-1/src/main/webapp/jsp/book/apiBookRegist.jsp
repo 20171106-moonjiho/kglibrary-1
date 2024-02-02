@@ -8,10 +8,11 @@
 <meta charset="UTF-8">
 <title>API도서등록</title>
 </head>
-<link href="book2.css" rel="stylesheet">
+<link href="../book2.css" rel="stylesheet">
 <body>
-	<c:import url="/header" />
-	<c:import url="/bookheader" />
+
+	<%@ include file="/jsp/default/header.jsp" %>
+	<%@ include file="/jsp/book/bookheader.jsp" %>
 	<div id="cont_head">
 		<h2>API도서등록</h2>
 		<!-- 현재위치 -->
@@ -49,7 +50,8 @@
 			</div>
 		</div>
 	</div>
-	<c:import url="/bookfooter" />
-	<c:import url="/footer" />
+
+	<%@ include file="/jsp/book/bookfooter.jsp" %>
+	<%@ include file="/jsp/default/footer.jsp" %>
 </body>
 </html>

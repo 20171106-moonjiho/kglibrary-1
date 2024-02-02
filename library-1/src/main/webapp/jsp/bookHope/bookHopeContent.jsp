@@ -7,10 +7,10 @@
 <meta charset="UTF-8">
 <title>비치희망도서 상세정보</title>
 </head>
-<link href="book2.css" rel="stylesheet">
+<link href="../book2.css" rel="stylesheet">
 <body>
-	<c:import url="/header" />
-	<c:import url="/bookheader" />
+	<%@ include file="/jsp/default/header.jsp" %>
+	<%@ include file="/jsp/book/bookheader.jsp" %>
 	<script>
 		
 	</script>
@@ -77,7 +77,8 @@
 
 		</div>
 	</div>
-	<c:import url="/bookfooter" />
-	<c:import url="/footer" />
+
+	<%@ include file="/jsp/book/bookfooter.jsp" %>
+	<%@ include file="/jsp/default/footer.jsp" %>
 </body>
 </html>

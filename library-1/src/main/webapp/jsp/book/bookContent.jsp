@@ -12,11 +12,11 @@
 <meta charset="UTF-8">
 <title>도서상세정보</title>
 </head>
-<link href="book2.css" rel="stylesheet">
+<link href="../book2.css" rel="stylesheet">
 <body>
 	
-	<c:import url="/header" />
-	<c:import url="/bookheader" />
+	<%@ include file="/jsp/default/header.jsp" %>
+	<%@ include file="/jsp/book/bookheader.jsp" %>
 	<div id="cont_head">
 		<h2>도서상세정보</h2>
 		<!-- 현재위치 -->
@@ -40,7 +40,7 @@
 						<c:choose>
 							<c:when
 								test="${not empty board.image && board.category ne 'API'}">
-								<img width="300" src="/img/admin/${board.image }">
+								<img width="300" src="${imageUrl }">
 								<br>
 							</c:when>
 							<c:otherwise>
@@ -110,7 +110,8 @@
 		</div>
 	</div>
 	
-	<c:import url="/bookfooter" />
-	<c:import url="/footer" />
+
+	<%@ include file="/jsp/book/bookfooter.jsp" %>
+	<%@ include file="/jsp/default/footer.jsp" %>
 </body>
 </html>

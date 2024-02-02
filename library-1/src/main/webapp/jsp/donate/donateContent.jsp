@@ -82,8 +82,9 @@ body {
 }
 </style>
 <body>
-	<c:import url="/header" />
-	<c:import url="/donateheader" />
+	<%@ include file="/jsp/default/header.jsp" %>
+	<%@ include file="/jsp/donate/donateheader.jsp" %>	
+
 
 	<div id="contents">
 		<div id="print_wrap">
@@ -126,8 +127,8 @@ body {
 			</div>
 		</div>
 	</div>
+	<%@ include file="/jsp/donate/donatefooter.jsp" %>
+	<%@ include file="/jsp/default/footer.jsp" %>
 
-	<c:import url="/donatefooter" />
-	<c:import url="/footer" />
 </body>
 </html>
