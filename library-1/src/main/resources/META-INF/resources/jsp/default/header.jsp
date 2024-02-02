@@ -22,7 +22,7 @@
 					</div>
 					<ul class="aside_menu">	
 
-						<li class="../login">
+						<li class="login">
 							<c:choose>
 								<c:when test="${empty sessionScope.id }">
 									<a href="../login">로그인</a>
@@ -32,7 +32,7 @@
 								</c:otherwise>
 							</c:choose>
 						</li>
-						<li class="../join">
+						<li class="join">
 							<c:choose>
 								<c:when test="${empty sessionScope.id }">
 									<a href="../terms">회원가입</a>
@@ -43,7 +43,7 @@
 							</c:choose>
 						</li>	
 						<c:if test="${sessionScope.id eq 'admin' }">
-							<li class="../admin">
+							<li class="admin">
 							<a href="../admin">관리자페이지</a>
 							</li>
 						</c:if>	
@@ -122,14 +122,14 @@
 						</div>
 					</li>
 					 
-					<li><a href="../donateguide">도서 기증</a>
+					<li><a href="donateguide">도서 기증</a>
 						<div class="two_depth">
 								<ul>	
-									<li><a href="../donateguide" >기증 안내
+									<li><a href="donateguide" >기증 안내
 									</a></li>
-									<li><a href="../donateWrite" >기증 신청
+									<li><a href="donateWrite" >기증 신청
 									</a></li>
-									<li><a href="../donateForm" >기증 목록
+									<li><a href="donateForm" >기증 목록
 									</a></li>									
 								</ul>
 						</div>

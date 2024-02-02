@@ -40,7 +40,7 @@
 						<c:choose>
 							<c:when
 								test="${not empty board.image && board.category ne 'API'}">
-								<img width="300" src="/img/admin/${board.image }">
+								<img width="300" src="${imageUrl }">
 								<br>
 							</c:when>
 							<c:otherwise>

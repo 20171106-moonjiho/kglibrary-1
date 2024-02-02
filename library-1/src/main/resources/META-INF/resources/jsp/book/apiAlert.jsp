@@ -9,13 +9,13 @@
 
 		if (apimessage === 'none') {
 			alert('알수 없는 오류 입니다. 관리자를 호출해주세요');
-			window.location.href = 'book/apiBookRegist';
+			window.location.href = 'apiBookRegist';
 		} else if (apimessage === 'search') {
 			alert('등록되었습니다.');
-			window.location.href = 'book/apiBookRegist';
+			window.location.href = 'apiBookRegist';
 		} else {
 			alert('검색값이 없습니다.');
-			window.location.href = 'book/apiBookRegist';
+			window.location.href = 'apiBookRegist';
 		}
 	}
 </script>

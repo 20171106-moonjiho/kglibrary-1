@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 @Service
 public class BookHopeService {
 
-	private String filePath = "C:\\Users\\User\\git\\kglibrary\\library\\src\\main\\resources\\static\\img\\";
+    
 	@Autowired IBookHopeMapper mapper;
 	@Autowired 
 	private HttpSession session;
@@ -78,16 +78,6 @@ public class BookHopeService {
 			board.setReason(contents); //신청 이유
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			board.setHopedate(sdf.format(new Date())); //신청 작성일
-			
-			System.out.println(board.getBoard_title());
-			System.out.println(board.getHope_user());
-			System.out.println(board.getCategory());	
-			System.out.println(board.getTitle_info());	
-			System.out.println(board.getAuthor_info());	
-			System.out.println(board.getPub_info());	
-			System.out.println(board.getPub_year_info());
-			System.out.println(board.getReason());
-			System.out.println(board.getHopedate());
 	
 			mapper.bookHopeRegistProc(board);
 			

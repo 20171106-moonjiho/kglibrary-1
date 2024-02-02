@@ -26,7 +26,7 @@
 	</div>
 	<div id="cont_wrap">
 		<div id="board" style="width: 100%;">
-			<form action="book/bookForm">
+			<form action="bookForm">
 				<span> ▷ 총 ${count }개의 검색 결과가 있습니다. </span> <span class="center">
 					<select class="selectBox" name="select">
 						<option value="title" selected="selected">제목</option>
@@ -58,7 +58,7 @@
 							<tr>
 								<td class="center">${board.no }</td>
 								<td class="left"
-									onclick="location.href='book/bookContent?no=${board.no }'">
+									onclick="location.href='bookContent?no=${board.no }'">
 									${board.title_info }</td>
 								<td class="center">${board.author_info }</td>
 								<td class="center">${board.reg_date }</td>
