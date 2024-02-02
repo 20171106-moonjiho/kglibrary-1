@@ -245,6 +245,7 @@ public class BookController {
 	        try {
 	            ObjectMapper objectMapper = new ObjectMapper();
 	            myBookJson = objectMapper.writeValueAsString(requestmybook);
+	            System.out.println(myBookJson.toString());
 	        } catch (JsonProcessingException e) {
 	            e.printStackTrace();
 	            return ResponseEntity.ok("ERROR");
