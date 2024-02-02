@@ -157,7 +157,7 @@ public class BookController {
 	}
 	
 	
-	@GetMapping("book/hit_book")
+	@GetMapping(value = "book/hit_book", produces = "application/json")
 	 @ResponseBody
 	    public ArrayList<BookDTO> hitBook() {
 		   try {
