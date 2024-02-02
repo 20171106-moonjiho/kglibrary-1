@@ -5,6 +5,7 @@
 
 <mapper namespace="com.kg.library-1.donate.DonateMapper">
 
+	<!-- donateForm -->
 	<select id="donateForm">
 		<choose>
 			<when test="select == 'select'">
@@ -25,6 +26,7 @@
 		</choose>
 	</select>
 
+	<!-- donateWriteProc -->
 	<insert id="donateWriteProc" useGeneratedKeys="true"
 		keyProperty="no">
 		<selectKey order="BEFORE" keyProperty="no" resultType="int">
@@ -36,6 +38,7 @@
 		#{reg_date})
 	</insert>
 
+	<!-- totalCount -->
 	<select id="totalCount">
 		<choose>
 			<when test="select == 'select'">
@@ -48,6 +51,7 @@
 		</choose>
 	</select>
 
+	<!-- donateContent -->
 	<select id="donateContent"
 		resultType="com.kg.library_1.donate.DonateDTO">
 		SELECT * FROM book_donate WHERE no = #{no}
