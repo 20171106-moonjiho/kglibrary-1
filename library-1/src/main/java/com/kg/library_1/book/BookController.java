@@ -182,7 +182,7 @@ public class BookController {
 	    }
 	 @GetMapping("book/new_Book")
 	 @ResponseBody
-	    public ArrayList<BookDTO> newBook() {
+	    public ResponseEntity<ArrayList<BookDTO>> newBook() {
 		   try {
 			   System.err.println("요청 연결 성공");
 	            ArrayList<BookDTO> newBooks = service.newBook();
@@ -197,18 +197,18 @@ public class BookController {
 	                System.out.print("\u001B[0m");
 	            }
 
-	            return newBooks;
+	            return ResponseEntity.ok(newBooks);
 	        } catch (Exception e) {
 	            // 예외 발생 시 출력
 	            System.err.println("요청 연결 실패");
 	            e.printStackTrace();
-	            return new ArrayList<>(); // 빈 리스트 또는 에러 응답을 반환할 수 있음
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ArrayList<>());
 	        }
 	    }
 	
 	 @GetMapping("book/dataStatus")
 	 @ResponseBody
-	    public List<Map<String, Object>> dataStatus(BookDTO board, Model model) {
+	    public ResponseEntity<List<Map<String, Object>>> dataStatus(BookDTO board, Model model) {
 		   try {
 			   System.err.println("요청 연결 성공");
 	            List<Map<String, Object>> dataStatus = service.dataStatus(board);
@@ -219,12 +219,12 @@ public class BookController {
 	                System.out.println("8087Data: " + data);
 	            }
 	            
-	            return dataStatus;
+	            return ResponseEntity.ok(dataStatus);
 	        } catch (Exception e) {
 	            // 예외 발생 시 출력
 	            System.err.println("요청 연결 실패");
 	            e.printStackTrace();
-	            return new ArrayList<>(); // 빈 리스트 또는 에러 응답을 반환할 수 있음
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ArrayList<>());
 	        }
 	    }
 	
