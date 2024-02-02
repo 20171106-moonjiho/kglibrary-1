@@ -161,7 +161,7 @@ public class BookController {
 	 @ResponseBody
 	    public ArrayList<BookDTO> hitBook() {
 		   try {
-			   System.err.println("요청 연결 성공");
+			   System.err.println("hit book 요청 연결 성공");
 	            ArrayList<BookDTO> hitbooks = service.hitBook();
 
 	            // 받아온 데이터 출력
@@ -175,7 +175,7 @@ public class BookController {
 	            return hitbooks;
 	        } catch (Exception e) {
 	            // 예외 발생 시 출력
-	            System.err.println("요청 연결 실패");
+	            System.err.println("hit book 요청 연결 실패");
 	            e.printStackTrace();
 	            return new ArrayList<>(); // 빈 리스트 또는 에러 응답을 반환할 수 있음
 	        }
@@ -184,7 +184,7 @@ public class BookController {
 	 @ResponseBody
 	    public ArrayList<BookDTO> newBook() {
 		   try {
-			   System.err.println("요청 연결 성공");
+			   System.err.println("new book 요청 연결 성공");
 	            ArrayList<BookDTO> newBooks = service.newBook();
 
 	            // 받아온 데이터 출력
@@ -200,7 +200,7 @@ public class BookController {
 	            return newBooks;
 	        } catch (Exception e) {
 	            // 예외 발생 시 출력
-	            System.err.println("요청 연결 실패");
+	            System.err.println("new book 요청 연결 실패");
 	            e.printStackTrace();
 	            return new ArrayList<>(); // 빈 리스트 또는 에러 응답을 반환할 수 있음
 	        }
@@ -210,7 +210,7 @@ public class BookController {
 	 @ResponseBody
 	    public List<Map<String, Object>> dataStatus(BookDTO board, Model model) {
 		   try {
-			   System.err.println("요청 연결 성공");
+			   System.err.println("datastatus 요청 연결 성공");
 	            List<Map<String, Object>> dataStatus = service.dataStatus(board);
 	            // 받아온 데이터 출력
 	           
@@ -222,7 +222,7 @@ public class BookController {
 	            return dataStatus;
 	        } catch (Exception e) {
 	            // 예외 발생 시 출력
-	            System.err.println("요청 연결 실패");
+	            System.err.println("datastatus요청 연결 실패");
 	            e.printStackTrace();
 	            return new ArrayList<>(); // 빈 리스트 또는 에러 응답을 반환할 수 있음
 	        }
@@ -233,6 +233,7 @@ public class BookController {
 	    @PostMapping("book/requestMyBook") //return으로 데이터를 넘김
 	    public ResponseEntity<String> requestMyBook(@RequestBody Map<String, String> requestBody) {//외부 서버 데이터 받기
 	        // 요청 바디를 받아서 처리하는 로직을 작성
+	    	System.out.println("my book 되나?");
 	    	String reID = requestBody.get("id");
 	    	
 	    	if(reID == null || reID.trim().isEmpty()) {
