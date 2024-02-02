@@ -451,30 +451,30 @@ public class BookService {
 	 * return board;
 	 */
 
-	public ArrayList<BookDTO> BookData() {
-
-		ArrayList<BookDTO> hitbooks = mapper.hitbooks();
-		if (hitbooks != null) {
-			for (BookDTO b : hitbooks) {
-				if (b.getImage() == null || b.getImage().trim().isEmpty()) {
-					b.setImage("20240109150111-40641325628.20230718121618.jpg");
-					continue;
-				}
-				String[] names = b.getImage().split("\\\\");
-				// String[] names= b.getImage().split("/");
-				for (String name : names) {
-					System.out.println("name: " + name);
-				}
-				// String[] fileNames= names[1].split("-",2);
-				String[] fileNames = names[12].split("-", 2);
-				for (String fileName : fileNames) {
-					System.out.println("fileName: " + fileName);
-				}
-				b.setImage(names[12]);
-			}
-		}
-		return hitbooks;
-	}
+//	public ArrayList<BookDTO> BookData() {
+//
+//		ArrayList<BookDTO> hitbooks = mapper.hitbooks();
+//		if (hitbooks != null) {
+//			for (BookDTO b : hitbooks) {
+//				if (b.getImage() == null || b.getImage().trim().isEmpty()) {
+//					b.setImage("20240109150111-40641325628.20230718121618.jpg");
+//					continue;
+//				}
+//				String[] names = b.getImage().split("\\\\");
+//				// String[] names= b.getImage().split("/");
+//				for (String name : names) {
+//					System.out.println("name: " + name);
+//				}
+//				// String[] fileNames= names[1].split("-",2);
+//				String[] fileNames = names[12].split("-", 2);
+//				for (String fileName : fileNames) {
+//					System.out.println("fileName: " + fileName);
+//				}
+//				b.setImage(names[12]);
+//			}
+//		}
+//		return hitbooks;
+//	}
 
 	public ArrayList<BookDTO> hitBook() {
 
@@ -485,17 +485,7 @@ public class BookService {
 					b.setImage("20240109150111-40641325628.20230718121618.jpg");
 					continue;
 				}
-				String[] names = b.getImage().split("\\\\");
-				// String[] names= b.getImage().split("/");
-				for (String name : names) {
-					System.out.println("name: " + name);
-				}
-				// String[] fileNames= names[1].split("-",2);
-				String[] fileNames = names[12].split("-", 2);
-				for (String fileName : fileNames) {
-					System.out.println("fileName: " + fileName);
-				}
-				b.setImage(names[12]);
+				
 			}
 		}
 		return hitbooks;
@@ -510,19 +500,7 @@ public class BookService {
 					b.setImage("20240109150111-40641325628.20230718121618.jpg");
 					continue;
 				}
-				if (b.getCategory().equals("API")) // API에서 받아온 이미지 라면
-				{
-					continue;
-				}
-				String[] names = b.getImage().split("\\\\");
-//				for(String name:names) {
-//					System.out.println("newBooks name: " +name);
-//				}
-				String[] fileNames = names[12].split("-", 2);
-//				for(String fileName:fileNames) {
-//					System.out.println("newBooks fileName: " +fileName);
-//				}
-				b.setImage(names[12]);
+
 			}
 		}
 		return newBooks;

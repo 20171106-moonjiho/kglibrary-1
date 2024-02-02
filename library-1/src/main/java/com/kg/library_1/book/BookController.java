@@ -103,7 +103,6 @@ public class BookController {
 	@RequestMapping("book/returnProc")
 	public String returnProc(String no) {
 			
-		
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || sessionId.trim().isEmpty()) 
 		return "redirect:bookContent";

@@ -10,15 +10,15 @@
 			<when test="select == 'select'">
 				SELECT B.* FROM (
 				SELECT ROW_NUMBER() OVER (ORDER BY no DESC) as r, A.* FROM (
-				SELECT book_donate.* FROM book_donate WHERE id LIKE CONCAT('%', #{search},
-				'%') ORDER BY no DESC
+				SELECT * FROM book_donate WHERE id LIKE CONCAT('%', #{search}, '%') ORDER
+				BY no DESC
 				) A
 				) B WHERE B.r BETWEEN #{begin} AND #{end}
 			</when>
 			<otherwise>
 				SELECT B.* FROM (
 				SELECT ROW_NUMBER() OVER (ORDER BY no DESC) as r, A.* FROM (
-				SELECT book_donate.* FROM book_donate ORDER BY no DESC
+				SELECT * FROM book_donate ORDER BY no DESC
 				) A
 				) B WHERE B.r BETWEEN #{begin} AND #{end}
 			</otherwise>
@@ -52,6 +52,7 @@
 		resultType="com.kg.library_1.donate.DonateDTO">
 		SELECT * FROM book_donate WHERE no = #{no}
 	</select>
+
 
 
 </mapper>
