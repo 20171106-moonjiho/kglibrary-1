@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -156,10 +157,9 @@ public class BookController {
 		return "book/apiAlert";
 	}
 	
-	
 	@GetMapping("book/hit_book")
 	 @ResponseBody
-	    public ArrayList<BookDTO> hitBook() {
+	 public ResponseEntity<ArrayList<BookDTO>> hitBook()  {
 		   try {
 			   System.err.println("요청 연결 성공");
 	            ArrayList<BookDTO> hitbooks = service.hitBook();
@@ -172,12 +172,12 @@ public class BookController {
 	                System.out.println("Author Info: " + b.getAuthor_info());
 	            }
 
-	            return hitbooks;
+	            return ResponseEntity.ok(hitbooks); // 정상적인 응답
 	        } catch (Exception e) {
 	            // 예외 발생 시 출력
 	            System.err.println("요청 연결 실패");
 	            e.printStackTrace();
-	            return new ArrayList<>(); // 빈 리스트 또는 에러 응답을 반환할 수 있음
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ArrayList<>());
 	        }
 	    }
 	 @GetMapping("book/new_Book")
