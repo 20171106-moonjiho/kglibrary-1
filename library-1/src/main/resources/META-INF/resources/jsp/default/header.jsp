@@ -113,10 +113,10 @@
 						</div>
 					</li>
 					
-					<li><a href="reservation">회의실</a>
+					<li><a href="reservation/reservation">회의실</a>
 						<div class="two_depth">
 								<ul>	
-									<li><a href="reservation" >회의실 예약
+									<li><a href="reservation/reservation" >회의실 예약
 									</a></li>
 								</ul>
 						</div>
