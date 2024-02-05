@@ -70,7 +70,7 @@ public class BookController {
 		return "book/bookRegist";
 	}
 	
-	@PostMapping("book/bookRegistProc")
+	@RequestMapping("book/bookRegistProc")
 	public String bookRegistProc(MultipartHttpServletRequest multi, RedirectAttributes ra) {
 
 		String path = service.bookRegistProc(multi);

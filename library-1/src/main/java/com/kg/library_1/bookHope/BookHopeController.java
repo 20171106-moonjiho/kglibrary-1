@@ -44,7 +44,7 @@ public class BookHopeController {
 			return "bookHope/bookHopeRegist";
 	}
 	
-	@PostMapping("book/bookHopeRegistProc")
+	@RequestMapping("book/bookHopeRegistProc")
 	public String bookHopeRegistProc(BookHopeDTO bookHopeDTO, RedirectAttributes ra) {
 
 		

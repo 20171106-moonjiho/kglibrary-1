@@ -24,24 +24,14 @@
 		</div>
 		<!-- //현재위치 -->
 	</div>
-	<div id="cont_wrap">
+		<div id="cont_wrap">
 		<div id="board" style="width: 100%;">
-			<form action="bookForm">
-				<span> ▷ 총 ${count }개의 검색 결과가 있습니다. </span> <span class="center">
-					<select class="selectBox" name="select">
-						<option value="title" selected="selected">제목</option>
-						<option value="author">저작자</option>
-						<option value="category">카테고리</option>
-				</select> <c:choose>
-						<c:when test="${empty search or search == 'null'}">
-							<input type="text" name="search" />
-						</c:when>
-						<c:otherwise>
-							<input type="text" name="search" value="${search }" />
-						</c:otherwise>
-					</c:choose> <input type="submit" class="submit_button" value="검색" />
-				</span>
-			</form>
+					<div class="board_total">
+						<div class="board_total_left">
+							<img src="../img/total_ic.gif" alt=""> 전체 <strong>${count }</strong>개의 게시물이 있습니다.
+						</div>
+					</div> 
+		
 			<c:choose>
 				<c:when test="${empty boards }">
 					<h1>등록된 데이터가 존재하지 않습니다.</h1>
@@ -65,17 +55,52 @@
 							</tr>
 						</c:forEach>
 					</table>
-					<div class="center" style="margin-top: 18px;">${result}</div>
+					
+
+				<c:choose>
+					<c:when test="${sessionScope.id eq 'admin'}">
+						<div class="board_button">
+							<div class="fr">
+								<span class="bt"><input type="button" value="개별 도서 등록"
+									onclick="location.href='bookRegist'"
+									class="cbtn cbtn_g2"></span>
+							</div>
+						</div>
+					</c:when>
+				</c:choose>
+				
+					<div class="board_paginate">${result}</div>
+				
+				<div style="margin: 0 auto; text-align: center;">
+						<div class="board_search">
+							<form id="frm_sch" action="bookForm">
+								<fieldset>
+									<ul>
+										<li><select id="v_search" name="select"
+											title="검색형태 선택" style="width: 70px;">
+												<option value="title" selected="selected">제목</option>
+												<option value="author">저작자</option>
+												<option value="category">카테고리</option>
+										</select></li>
+										<li><c:choose>
+												<c:when test="${empty search or search == 'null'}">
+													<input type="text" size="25" title="검색어를 입력하세요"
+														id="p_keyword" name="search" class="search_input" value="">
+												</c:when>
+												<c:otherwise>
+													<input type="text" size="25" title="검색어를 입력하세요"
+														id="p_keyword" name="search" class="search_input" value="">
+												</c:otherwise>
+											</c:choose></li>
+										<li><input type="image" src="../img/search_bt.gif"
+											id="search_bt" name="search_bt" class="search_bt" alt="검색"></li>
+									</ul>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+					
 				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${sessionScope.id eq 'admin'}">
-					<span class="right">
-						<button type="button" style="width: 150px;"
-							onclick="location.href='bookRegist'" class="submit_button">개별
-							도서 등록</button>
-					</span>
-				</c:when>
 			</c:choose>
 		</div>
 	</div>
