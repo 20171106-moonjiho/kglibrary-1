@@ -8,18 +8,18 @@
 		<choose>
 			<when test="select == 'select'">
 				SELECT B.* FROM (
-				SELECT ROW_NUMBER as r, A.* FROM (
-				SELECT book_donate.* FROM
-				book_donate where id like CONCAT('%', #{search}, '%') ORDER BY no
-				DESC)A
-				)B WHERE B.r BETWEEN #{begin} AND #{end}
+				SELECT ROW_NUMBER() OVER (ORDER BY no DESC) as r, A.* FROM (
+				SELECT * FROM book_donate WHERE id LIKE CONCAT('%', #{search}, '%') ORDER
+				BY no DESC
+				) A
+				) B WHERE B.r BETWEEN #{begin} AND #{end}
 			</when>
 			<otherwise>
 				SELECT B.* FROM (
-				SELECT ROW_NUMBER as r, A.* FROM (
-				SELECT book_donate.* FROM
-				book_donate ORDER BY no DESC)A
-				)B WHERE B.r BETWEEN #{begin} AND #{end}
+				SELECT ROW_NUMBER() OVER (ORDER BY no DESC) as r, A.* FROM (
+				SELECT * FROM book_donate ORDER BY no DESC
+				) A
+				) B WHERE B.r BETWEEN #{begin} AND #{end}
 			</otherwise>
 		</choose> 
 	</select>
