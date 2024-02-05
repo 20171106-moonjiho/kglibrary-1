@@ -82,7 +82,7 @@
 						<td><input type="file" name="upfile"></td>
 						<td><input type="button" class="submit_button" value="도서 등록"
 							onclick="bookCheck()"> <input type="button"
-							class="submit_button" value="취소" onclick="location.href='index'"><br>
+							class="submit_button" value="취소" onclick="location.href='bookForm'"><br>
 						</td>
 					</tr>
 				</table>
