@@ -112,7 +112,7 @@ public class BookController {
 		return "redirect:bookContent";	
 	}
 	
-	@PostMapping("book/bookDeleteProc")
+	@RequestMapping("book/bookDeleteProc")
 	public String bookDeleteProc(String no) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || !sessionId.equals("admin") || sessionId.trim().isEmpty()) {

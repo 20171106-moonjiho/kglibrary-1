@@ -153,8 +153,6 @@ public class BookService {
 				 */
 			}
 		}
-
-
      
 		sdf = new SimpleDateFormat("yyyy-MM-dd");
 
