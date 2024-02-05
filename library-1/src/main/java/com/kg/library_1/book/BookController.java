@@ -90,7 +90,7 @@ public class BookController {
 		return "book/bookContent";
 	}
 	
-	@PostMapping("book/rentalProc")
+	@RequestMapping("book/rentalProc")
 	public String rentalProc(String no) {
 			
 		String sessionId = (String) session.getAttribute("id");
@@ -101,7 +101,7 @@ public class BookController {
 		return "redirect:bookContent";	
 	}
 	
-	@PostMapping("book/returnProc")
+	@RequestMapping("book/returnProc")
 	public String returnProc(String no) {
 			
 		String sessionId = (String) session.getAttribute("id");
@@ -123,7 +123,7 @@ public class BookController {
 		return "redirect:bookForm";	
 	}
 
-	@RequestMapping("book/apiBookRegist") //도서 등록 url
+	@GetMapping("book/apiBookRegist") //도서 등록 url
 	public String apiBookRegist(Model model) {
 		
 		String sessionId = (String)session.getAttribute("id");

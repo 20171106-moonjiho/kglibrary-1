@@ -65,7 +65,7 @@ public class BookHopeController {
 		return "bookHope/bookHopeContent";
 	}
 	
-	@PostMapping("book/bookHopeDeleteProc")
+	@RequestMapping("book/bookHopeDeleteProc")
 	public String bookHopeDeleteProc(String no) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || sessionId.trim().isEmpty()) {

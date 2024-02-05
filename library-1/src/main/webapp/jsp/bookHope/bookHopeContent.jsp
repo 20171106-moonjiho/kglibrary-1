@@ -39,7 +39,7 @@
 				<table border='1' style="margin-top: 50px;">
 					<tr>
 						<th width="100">제목</th>
-						<td width="200">${board.board_title}</td>
+						<td width="200">${board.title_info}</td>
 						<th width="100">작성자</th>
 						<td width="200">${board.hope_user }</td>
 						<th width="70">저작자</th>
