@@ -23,7 +23,7 @@
 				) A
 				) B WHERE B.r BETWEEN #{begin} AND #{end}
 			</otherwise>
-		</choose>
+		</choose> 
 	</select>
 
 	<!-- donateWriteProc -->
