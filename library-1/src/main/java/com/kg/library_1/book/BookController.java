@@ -54,7 +54,7 @@ public class BookController {
 		return "book/bookForm";
 	}
 	
-	@RequestMapping("book/bookRegist") //도서 등록 url
+	@GetMapping("book/bookRegist") //도서 등록 url
 	public String bookRegist(Model model) {
 	
 		String sessionId = (String) session.getAttribute("id");
@@ -70,7 +70,7 @@ public class BookController {
 		return "book/bookRegist";
 	}
 	
-	@RequestMapping("book/bookRegistProc")
+	@PostMapping("book/bookRegistProc")
 	public String bookRegistProc(MultipartHttpServletRequest multi, RedirectAttributes ra) {
 
 		String path = service.bookRegistProc(multi);
@@ -90,7 +90,7 @@ public class BookController {
 		return "book/bookContent";
 	}
 	
-	@RequestMapping("book/rentalProc")
+	@PostMapping("book/rentalProc")
 	public String rentalProc(String no) {
 			
 		String sessionId = (String) session.getAttribute("id");
@@ -101,7 +101,7 @@ public class BookController {
 		return "redirect:bookContent";	
 	}
 	
-	@RequestMapping("book/returnProc")
+	@PostMapping("book/returnProc")
 	public String returnProc(String no) {
 			
 		String sessionId = (String) session.getAttribute("id");
@@ -112,7 +112,7 @@ public class BookController {
 		return "redirect:bookContent";	
 	}
 	
-	@RequestMapping("book/bookDeleteProc")
+	@PostMapping("book/bookDeleteProc")
 	public String bookDeleteProc(String no) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || !sessionId.equals("admin") || sessionId.trim().isEmpty()) {
@@ -136,7 +136,7 @@ public class BookController {
 		return "book/apiBookRegist";
 	}
 	
-	@RequestMapping("book/apiRegistProc") //도서 등록
+	@PostMapping("book/apiRegistProc") //도서 등록
 	public String apiRegistProc(String pageNum, String select, String search, Model model,
 			@RequestParam(name = "parameterName", required = false) String Id) {
 		if(Id != null && !Id.trim().isEmpty())	

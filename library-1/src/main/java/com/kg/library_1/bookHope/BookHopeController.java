@@ -34,7 +34,7 @@ public class BookHopeController {
 		return "bookHope/bookHopeForm";
 	}
 	
-	@RequestMapping("book/bookHopeRegist") //도서 등록 url
+	@GetMapping("book/bookHopeRegist") //도서 등록 url
 	public String bookHopeRegist(Model model) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || sessionId.trim().isEmpty()) {
@@ -44,7 +44,7 @@ public class BookHopeController {
 			return "bookHope/bookHopeRegist";
 	}
 	
-	@RequestMapping("book/bookHopeRegistProc")
+	@PostMapping("book/bookHopeRegistProc")
 	public String bookHopeRegistProc(BookHopeDTO bookHopeDTO, RedirectAttributes ra) {
 
 		
@@ -65,7 +65,7 @@ public class BookHopeController {
 		return "bookHope/bookHopeContent";
 	}
 	
-	@RequestMapping("book/bookHopeDeleteProc")
+	@PostMapping("book/bookHopeDeleteProc")
 	public String bookHopeDeleteProc(String no) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || sessionId.trim().isEmpty()) {
