@@ -41,14 +41,15 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 @Service
 public class BookService {
 
-	//s3에 이미지 추가
+	// s3에 이미지 추가
 	private String bucketName = "kglibrary"; // S3 버킷 이름
-    private String s3FilePath = "static/img/"; // S3에 업로드할 경로
+	private String s3FilePath = "static/img/"; // S3에 업로드할 경로
 
-	 @Autowired
-	 private S3Client s3Client; // AWS S3 클라이언트 주입
-	
-	//private String filePath = "C:\\Users\\User\\git\\kglibrary\\library\\src\\main\\resources\\static\\img\\";
+	@Autowired
+	private S3Client s3Client; // AWS S3 클라이언트 주입
+
+	// private String filePath =
+	// "C:\\Users\\User\\git\\kglibrary\\library\\src\\main\\resources\\static\\img\\";
 	@Autowired
 	IBookMapper mapper;
 	@Autowired
@@ -84,14 +85,14 @@ public class BookService {
 	}
 
 	private String extractFileName(String filePath) {
-	    Path path = Paths.get(filePath);
-	    if (path.getNameCount() > 0) {
-	        return path.getFileName().toString();
-	    } else {
-	        return filePath;
-	    }
+		Path path = Paths.get(filePath);
+		if (path.getNameCount() > 0) {
+			return path.getFileName().toString();
+		} else {
+			return filePath;
+		}
 	}
-	
+
 	public String bookRegistProc(MultipartHttpServletRequest multi) { // 책 등록
 
 		String sessionId = (String) session.getAttribute("id");
@@ -110,15 +111,16 @@ public class BookService {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-		String api_file ="";
+		String api_file = "";
 		String s3Key = "";
 		MultipartFile file = multi.getFile("upfile");
 		if (multi.getParameter("category").equals("API")) // API에서 받아온 이미지 라면
 		{
+
 			api_file = multi.getParameter("image");
 		} else { // 사용자가 직접 올린 이미지라면
-	
-			if (file.getSize() != 0) { // 클라이언트라 파일을 업로드 했다면
+
+			if (file.getSize() != 0) { // 클라이언트가 파일을 업로드 했다면
 				// 파일 이름
 				sdf = new SimpleDateFormat("yyyyMMddHHmmss-");
 				String fileTime = sdf.format(new Date());
@@ -135,17 +137,15 @@ public class BookService {
 				// 파일 저장 경로
 				String fileSaveDirectory = "kglibrary/" + sessionId;
 				String fullPath = fileSaveDirectory + "/" + fileTime + fileName;
-				
+
 				System.out.println(fileSaveDirectory);
 				// String suffix = fileName.substring(beginIndex)
-			    
 
 				// AWS S3에 업로드할 경로 설정
 				s3Key = s3FilePath + sessionId + "/" + fileTime + fileName;
 				System.out.println("이미지 경로 " + s3Key);
 				// board.setImage(fullPath);
-       
-		        
+
 				/*
 				 * file.transferTo(); 파일을 이동시키는 기능 <input type="file" name= "upfile"을 사용하여 서버에
 				 * 파일 데이터가 전달되면 웹서버가 임시파일로 저장을 함. 임시파일로 저장된 파일을 개발자가 원하는 대로 이동 시킬 때 사용함.
@@ -153,7 +153,7 @@ public class BookService {
 				 */
 			}
 		}
-     
+
 		sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		for (int i = 1; i <= book_count; i++) {
@@ -185,30 +185,30 @@ public class BookService {
 			board.setBook_count(i); // 동일한 책 번호(책 갯수)
 			board.setBorrowdate(borrowtime);
 			board.setRentaldate(rentaldate);
-			
+
 			if (multi.getParameter("category").equals("API")) // API에서 받아온 이미지 라면
-			{board.setImage(api_file);
-			}else {
-			
-			 try (InputStream fileInputStream = file.getInputStream()) {
-		            // S3에 업로드할 파일의 크기
-		            long fileSize = file.getSize();
+			{
+				board.setImage(api_file);
+			} else {
+				if (file.getSize() != 0) {
+					try (InputStream fileInputStream = file.getInputStream()) {
+						// S3에 업로드할 파일의 크기
+						long fileSize = file.getSize();
 
-		            // S3에 업로드할 객체 생성
-		            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-		                    .bucket(bucketName)
-		                    .key(s3Key)
-		                    .build();
+						// S3에 업로드할 객체 생성
+						PutObjectRequest putObjectRequest = PutObjectRequest.builder().bucket(bucketName).key(s3Key)
+								.build();
 
-		            // S3에 파일 업로드
-		            s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(fileInputStream, fileSize));
-		            board.setImage(s3Key);
-		        }catch (IOException e) {
-		            e.printStackTrace();
-		            board.setImage("");
-		        }
+						// S3에 파일 업로드
+						s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(fileInputStream, fileSize));
+						board.setImage(s3Key);
+					} catch (IOException e) {
+						e.printStackTrace();
+						board.setImage("");
+					}
+				}
 			}
-			
+
 			String donation = multi.getParameter("donation");
 			if (donation == null || donation.trim().isEmpty()) { // 기증자가 없을 시
 				board.setDonation("없음");
@@ -244,7 +244,7 @@ public class BookService {
 		{
 			String imageUrl = getS3ObjectUri(board.getImage());
 			System.out.println("이미지 주소: " + imageUrl);
-			model.addAttribute("imageUrl",imageUrl);
+			model.addAttribute("imageUrl", imageUrl);
 		}
 		// 7일 후의 시간 계산
 		LocalDateTime storedTime = board.getBorrowdate().toLocalDateTime(); // DB 값 형 변환
@@ -256,19 +256,16 @@ public class BookService {
 		model.addAttribute("rentaldate", rentaldate);
 		return board;
 	}
-	
-	private String getS3ObjectUri(String s3Key) {
-		 if (s3Key == null || s3Key.trim().isEmpty()) {
-		        // s3Key가 null 또는 빈 문자열인 경우에 대한 예외 처리
-		        return ""; // 또는 다른 기본값 설정
-		    }
-		 
-		GetUrlRequest  getUrlRequest  = GetUrlRequest .builder()
-	            .bucket(bucketName)
-	            .key(s3Key)
-	            .build();
 
-	    return s3Client.utilities().getUrl(getUrlRequest ).toExternalForm();
+	private String getS3ObjectUri(String s3Key) {
+		if (s3Key == null || s3Key.trim().isEmpty()) {
+			// s3Key가 null 또는 빈 문자열인 경우에 대한 예외 처리
+			return ""; // 또는 다른 기본값 설정
+		}
+
+		GetUrlRequest getUrlRequest = GetUrlRequest.builder().bucket(bucketName).key(s3Key).build();
+
+		return s3Client.utilities().getUrl(getUrlRequest).toExternalForm();
 	}
 
 	public void rentalProc(String no, String sessionId) { // 대여
@@ -483,7 +480,7 @@ public class BookService {
 					b.setImage("20240109150111-40641325628.20230718121618.jpg");
 					continue;
 				}
-				
+
 			}
 		}
 		return hitbooks;
@@ -517,30 +514,30 @@ public class BookService {
 	}
 
 	/////////////
-	public List<BookDTO> requestMyBook(String id) {	
-		return mapper.myBook(id);		
+	public List<BookDTO> requestMyBook(String id) {
+		return mapper.myBook(id);
 	}
 
 	public void borrowDateExtend(String no, String id) {
-	
-	    int n = 1;
-		  
-	    try {
-	        n = Integer.parseInt(no);
-	    } catch (Exception e) {
-	        
-	    }
-	   
-	    BookDTO board = mapper.bookContent(n);
-	    
-	    Timestamp storedTime = board.getBorrowdate();
-	    LocalDateTime storedLocalDateTime = storedTime.toLocalDateTime();
-	    LocalDateTime rentalday = storedLocalDateTime.plus(Duration.ofDays(14));
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-	    String rentaldate = rentalday.format(formatter);
 
-	    mapper.borrowDateExtend(n, id, rentaldate);
-		
+		int n = 1;
+
+		try {
+			n = Integer.parseInt(no);
+		} catch (Exception e) {
+
+		}
+
+		BookDTO board = mapper.bookContent(n);
+
+		Timestamp storedTime = board.getBorrowdate();
+		LocalDateTime storedLocalDateTime = storedTime.toLocalDateTime();
+		LocalDateTime rentalday = storedLocalDateTime.plus(Duration.ofDays(14));
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String rentaldate = rentalday.format(formatter);
+
+		mapper.borrowDateExtend(n, id, rentaldate);
+
 	}
 
 	public void requestreturnProc2(String no) {
