@@ -17,4 +17,6 @@ public interface DonateMapper {
 
 	DonateDTO donateContent(String no);
 
+	int donateDeleteProc(String no);
+
 }

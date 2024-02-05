@@ -53,4 +53,10 @@ public class DonateService {
 		DonateDTO board = mapper.donateContent(no);
 		return board;
 	}
+	public int donateDeleteProc(String no) {
+		int res = mapper.donateDeleteProc(no);
+		return  res;
+		
+	}
+	
 }

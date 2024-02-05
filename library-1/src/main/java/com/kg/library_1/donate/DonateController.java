@@ -80,6 +80,23 @@ public class DonateController {
 		model.addAttribute("board", board);
 		return "donate/donateContent";
 	}
+	// 도서 기증 삭제실행 --------------------------------
+	@RequestMapping("book/donateDeleteProc")
+	public String donateDeleteProc(String no, Model model) {
+		String msg="게시글 삭제가 실패되었습니다.";
+		
+		int res = service.donateDeleteProc(no);
+		
+		if(res>0) {
+			msg = "게시글이 삭제되었습니다.";
+			model.addAttribute(msg);
+			return "redirect:donateForm";
+		}
+		model.addAttribute(msg);
+		return "redirect:donateForm";
+	}
+	
+	
 	// 도서 기증 안내서   --------------------------------
 	@RequestMapping("book/donateguide")
 	public String donateguide(Model model) {
