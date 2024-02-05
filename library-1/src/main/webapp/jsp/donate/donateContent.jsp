@@ -88,7 +88,7 @@ body {
       function deleteCheck() {
          result = confirm('진짜로 삭제하겠습니까?');
          if (result == true) {
-            location.href = 'book/donateDeleteProc?no=${board.no}'
+            location.href = 'donateDeleteProc?no=${board.no}'
          }
       }
    </script>
