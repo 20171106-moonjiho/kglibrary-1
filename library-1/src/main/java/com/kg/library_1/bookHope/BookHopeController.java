@@ -47,12 +47,11 @@ public class BookHopeController {
 	@RequestMapping("book/bookHopeRegistProc")
 	public String bookHopeRegistProc(BookHopeDTO bookHopeDTO, RedirectAttributes ra) {
 
-		
 		String path = service.bookHopeRegistProc(bookHopeDTO);
 		return path;
 	}
 	
-	@RequestMapping("book/bookHopeContent")
+	@GetMapping("book/bookHopeContent")
 	public String bookHopeContent(String no,Model model) {
 		
 		BookHopeDTO board = service.bookHopeContent(no, model);
@@ -65,7 +64,7 @@ public class BookHopeController {
 		return "bookHope/bookHopeContent";
 	}
 	
-	@RequestMapping("book/bookHopeDeleteProc")
+	@GetMapping("book/bookHopeDeleteProc")
 	public String bookHopeDeleteProc(String no) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || sessionId.trim().isEmpty()) {

@@ -77,7 +77,7 @@ public class BookController {
 		return path;
 	}
 	
-	@RequestMapping("book/bookContent")
+	@GetMapping("book/bookContent")
 	public String bookContent(String no,Model model) {
 		
 		BookDTO board = service.bookContent(no, model);
@@ -90,7 +90,7 @@ public class BookController {
 		return "book/bookContent";
 	}
 	
-	@RequestMapping("book/rentalProc")
+	@GetMapping("book/rentalProc")
 	public String rentalProc(String no) {
 			
 		String sessionId = (String) session.getAttribute("id");
@@ -101,7 +101,7 @@ public class BookController {
 		return "redirect:bookContent";	
 	}
 	
-	@RequestMapping("book/returnProc")
+	@GetMapping("book/returnProc")
 	public String returnProc(String no) {
 			
 		String sessionId = (String) session.getAttribute("id");
@@ -112,7 +112,7 @@ public class BookController {
 		return "redirect:bookContent";	
 	}
 	
-	@RequestMapping("book/bookDeleteProc")
+	@GetMapping("book/bookDeleteProc")
 	public String bookDeleteProc(String no) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || !sessionId.equals("admin") || sessionId.trim().isEmpty()) {
